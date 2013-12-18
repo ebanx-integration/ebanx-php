@@ -1,0 +1,23 @@
+{
+    "name": "ebanx/ebanx",
+    "description": "EBANX PHP library",
+    "keywords": ["ebanx", "payment processing", "api"],
+    "homepage": "https://ebanx.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gustavo Henrique Mascarenhas Machado",
+            "email": "guhemama@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ebanx": "src"
+        }
+    },
+    "minimum-stability": "stable"
+}
