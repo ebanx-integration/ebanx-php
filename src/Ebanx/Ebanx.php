@@ -24,7 +24,8 @@ class Ebanx
     {
         if (preg_match('/^do[\w]+/', $name))
         {
-            \Ebanx\Command\Factory::runCommand($name, $args);
+            $command = \Ebanx\Command\Factory::build($name);
+            return $command->execute($args);
         }
     }
 }

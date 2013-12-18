@@ -2,7 +2,7 @@
 
 namespace Ebanx\Command;
 
-class PrintHtml
+class PrintHtml extends \Ebanx\Command\Command
 {
     /**
      * Required params name
@@ -16,5 +16,11 @@ class PrintHtml
      * The HTTP method
      * @var string
      */
-    protected $_httpMethod = 'GET';
+    protected $_method = 'GET';
+
+    /**
+     * The action URL address
+     * @var string
+     */
+    protected $_action = 'boleto/printHTML';
 }

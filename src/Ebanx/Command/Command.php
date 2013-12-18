@@ -1,8 +1,8 @@
 <?php
 
-namespace Ebanx;
+namespace Ebanx\Command;
 
-abstract class Command
+class Command
 {
     /**
      * Associative array of params
@@ -20,29 +20,46 @@ abstract class Command
      * The HTTP method
      * @var string
      */
-    protected $_httpMethod = 'POST';
+    protected $_method = 'POST';
 
-    public function setParams($params)
-    {
-        $this->_params = $params;
-    }
+    /**
+     * The action URL address
+     * @var string
+     */
+    protected $_action = null;
 
     /**
      * Validates parameters presence
      * @return mixed
      */
-    protected function _validateParamsPresence()
+    protected function _validateParams()
     {
         $paramKeys    = sort(array_keys($this->_params));
         $requiredKeys = sort(array_keys($this->_requiredParams));
 
-        if ($params == $requiredKeys)
+        if ($paramKeys == $requiredKeys)
         {
             return true;
         }
 
-        throw new InvalidArgumentException('An invalid number of arguments was supplied to the command.');
+        throw new \InvalidArgumentException('An invalid number of arguments was supplied to the command.');
     }
 
-    //abstract function ();
+    /**
+     * Executes the command in the EBANX API
+     * @param  array $params The request parameters
+     * @return mixed
+     */
+    public function execute($params)
+    {
+        $this->_params = $params;
+        $this->_validateParams();
+
+        $client = new \Ebanx\Http\Client();
+        $client->setParams($params)
+               ->setMethod($this->_method)
+               ->setAction($this->_action);
+
+        return $client->send();
+    }
 }

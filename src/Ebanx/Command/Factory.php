@@ -4,7 +4,7 @@ namespace Ebanx\Command;
 
 class Factory
 {
-    public static function runCommand($name, $args)
+    public static function build($name)
     {
         $class = '\\Ebanx\\Command\\';
 
@@ -26,7 +26,13 @@ class Factory
             }
         }
 
-        echo "factory build class $class\n";
-        var_dump(new $class);
+        if (class_exists($class))
+        {
+            return new $class();
+        }
+        else
+        {
+            throw new \RuntimeException("Command $className doesn't exist.");
+        }
     }
 }
