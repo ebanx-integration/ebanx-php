@@ -2,25 +2,19 @@
 
 namespace Ebanx\Command;
 
-class PrintHtml extends \Ebanx\Command\AbstractCommand
+class Cancel extends \Ebanx\Command\AbstractCommand
 {
     /**
      * The HTTP method
      * @var string
      */
-    protected $_method = 'GET';
+    protected $_method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'boleto/printHTML';
-
-    /**
-     * The response type - HTML or JSON
-     * @var string
-     */
-    protected $_responseType = 'HTML';
+    protected $_action = 'cancel';
 
     /**
      * Validates the request parameters

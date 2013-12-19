@@ -2,19 +2,13 @@
 
 namespace Ebanx\Command;
 
-class Command
+abstract class AbstractCommand
 {
     /**
      * Associative array of params
      * @var array
      */
     protected $_params = array();
-
-    /**
-     * Required params name
-     * @var array
-     */
-    protected $_requiredParams = array();
 
     /**
      * The HTTP method
@@ -29,21 +23,18 @@ class Command
     protected $_action = null;
 
     /**
-     * Validates parameters presence
-     * @return mixed
+     * The response type - HTML or JSON
+     * @var string
      */
-    protected function _validateParams()
-    {
-        $paramKeys    = sort(array_keys($this->_params));
-        $requiredKeys = sort(array_keys($this->_requiredParams));
+    protected $_responseType = 'JSON';
 
-        if ($paramKeys == $requiredKeys)
-        {
-            return true;
-        }
-
-        throw new \InvalidArgumentException('An invalid number of arguments was supplied to the command.');
-    }
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    abstract protected function _validate($validator);
 
     /**
      * Executes the command in the EBANX API
@@ -53,12 +44,13 @@ class Command
     public function execute($params)
     {
         $this->_params = $params;
-        $this->_validateParams();
+        $this->_validate(new \Ebanx\Command\Validator($this->_params));
 
         $client = new \Ebanx\Http\Client();
-        $client->setParams($params)
+        $client->setParams($this->_params)
                ->setMethod($this->_method)
-               ->setAction($this->_action);
+               ->setAction($this->_action)
+               ->setResponseType($this->_responseType);
 
         return $client->send();
     }

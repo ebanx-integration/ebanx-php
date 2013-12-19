@@ -8,7 +8,6 @@ $ebanx = new \Ebanx\Ebanx(array(
   'directMode'     => false,
   'testMode'       => true
 ));
-//$ebanx->doRequest();
+
 $response = $ebanx->doExchange(array('currency_code' => 'USD'));
 var_dump($response);
-//$ebanx->doModify();

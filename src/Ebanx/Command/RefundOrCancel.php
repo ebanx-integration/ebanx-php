@@ -2,25 +2,19 @@
 
 namespace Ebanx\Command;
 
-class PrintHtml extends \Ebanx\Command\AbstractCommand
+class RefundOrCancel extends \Ebanx\Command\AbstractCommand
 {
     /**
      * The HTTP method
      * @var string
      */
-    protected $_method = 'GET';
+    protected $_method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'boleto/printHTML';
-
-    /**
-     * The response type - HTML or JSON
-     * @var string
-     */
-    protected $_responseType = 'HTML';
+    protected $_action = 'refundOrCancel';
 
     /**
      * Validates the request parameters
@@ -31,5 +25,6 @@ class PrintHtml extends \Ebanx\Command\AbstractCommand
     protected function _validate($validator)
     {
         $validator->validatePresence('hash');
+        $validator->validatePresence('description');
     }
 }

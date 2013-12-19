@@ -2,16 +2,8 @@
 
 namespace Ebanx\Command;
 
-class Query extends \Ebanx\Command\Command
+class Query extends \Ebanx\Command\AbstractCommand
 {
-    /**
-     * Required params name
-     * @var array
-     */
-    protected $_requiredParams = array(
-        'integration_key'
-    );
-
     /**
      * The HTTP method
      * @var string
@@ -23,4 +15,15 @@ class Query extends \Ebanx\Command\Command
      * @var string
      */
     protected $_action = 'query';
+
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function _validate($validator)
+    {
+        $validator->validatePresenceOr('hash', 'merchant_payment_code');
+    }
 }

@@ -2,17 +2,8 @@
 
 namespace Ebanx\Command;
 
-class Exchange extends \Ebanx\Command\Command
+class Exchange extends \Ebanx\Command\AbstractCommand
 {
-    /**
-     * Required params name
-     * @var array
-     */
-    protected $_requiredParams = array(
-        'integration_key'
-      , 'currency_code'
-    );
-
     /**
      * The HTTP method
      * @var string
@@ -24,4 +15,15 @@ class Exchange extends \Ebanx\Command\Command
      * @var string
      */
     protected $_action = 'exchange';
+
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function _validate($validator)
+    {
+        $validator->validatePresence('currency_code');
+    }
 }

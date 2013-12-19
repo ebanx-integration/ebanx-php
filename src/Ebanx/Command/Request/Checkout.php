@@ -2,22 +2,8 @@
 
 namespace Ebanx\Command\Request;
 
-class Checkout extends \Ebanx\Command\Command
+class Checkout extends \Ebanx\Command\AbstractCommand
 {
-    /**
-     * Required params name
-     * @var array
-     */
-    protected $_requiredParams = array(
-        'integration_key'
-      , 'currency_code'
-      , 'amount'
-      , 'merchant_payment_code'
-      , 'name'
-      , 'email'
-      , 'payment_type_code'
-    );
-
     /**
      * The HTTP method
      * @var string
@@ -29,4 +15,20 @@ class Checkout extends \Ebanx\Command\Command
      * @var string
      */
     protected $_action = 'request';
+
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function _validate($validator)
+    {
+        $validator->validatePresence('currency_code');
+        $validator->validatePresence('amount');
+        $validator->validatePresence('merchant_payment_code');
+        $validator->validatePresence('name');
+        $validator->validatePresence('email');
+        $validator->validatePresence('payment_type_code');
+    }
 }
