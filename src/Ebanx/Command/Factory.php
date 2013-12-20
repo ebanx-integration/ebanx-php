@@ -32,7 +32,7 @@ class Factory
         }
         else
         {
-            throw new \RuntimeException("Command $className doesn't exist.");
+            throw new \RuntimeException("Command '$className' doesn't exist.");
         }
     }
 }

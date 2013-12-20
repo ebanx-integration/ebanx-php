@@ -46,7 +46,9 @@ abstract class AbstractCommand
         $this->_params = $params;
         $this->_validate(new \Ebanx\Command\Validator($this->_params));
 
-        $client = new \Ebanx\Http\Client();
+        // Get the HTTP client from the registry
+        $httpClient = \Ebanx\Config::getHttpClient();
+        $client = new $httpClient();
         $client->setParams($this->_params)
                ->setMethod($this->_method)
                ->setAction($this->_action)

@@ -2,7 +2,7 @@
 
 namespace Ebanx\Command;
 
-class RefundOrCancel extends \Ebanx\Command\AbstractCommand
+class Capture extends \Ebanx\Command\AbstractCommand
 {
     /**
      * The HTTP method

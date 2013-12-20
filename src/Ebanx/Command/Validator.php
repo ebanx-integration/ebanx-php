@@ -42,10 +42,15 @@ class Validator
     {
         if ($this->exists($key1))
         {
+            // Throw an exception if both parameters exist
+            if ($this->exists($key2))
+            {
+                throw new \InvalidArgumentException("Either parameter '$key1' or '$key2' must be supplied, but not both.");
+            }
+
             return true;
         }
-
-        if ($this->exists($key2))
+        else if ($this->exists($key2))
         {
             return true;
         }

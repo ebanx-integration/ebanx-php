@@ -16,6 +16,10 @@ class Ebanx
         \Ebanx\Config::setIntegrationKey($settings['integrationKey']);
         \Ebanx\Config::setDirectMode($directMode);
         \Ebanx\Config::setTestMode($testMode);
+
+        // Set the HTTP client - easier for testing
+        $httpClient = (isset($settings['httpClient'])) ? $settings['httpClient'] : '\\Ebanx\\Http\\Client';
+        \Ebanx\Config::setHttpClient($httpClient);
     }
 
     /**
@@ -28,8 +32,17 @@ class Ebanx
     {
         if (preg_match('/^do[\w]+/', $name))
         {
+            if (!isset($args[0]))
+            {
+                throw new \InvalidArgumentException('The command call received no arguments.');
+            }
+
             $command = \Ebanx\Command\Factory::build($name);
             return $command->execute($args[0]);
+        }
+        else
+        {
+            throw new \InvalidArgumentException("The command $name doesn't exist.");
         }
     }
 }
