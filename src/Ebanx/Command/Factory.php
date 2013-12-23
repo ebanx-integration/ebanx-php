@@ -38,6 +38,12 @@ namespace Ebanx\Command;
  */
 class Factory
 {
+    /**
+     * Returns an instance of the command class
+     * @param  string $name The command name in the form 'doCommand'
+     * @return \Ebanx\Command\AbstractCommand
+     * @throws RuntimeException
+     */
     public static function build($name)
     {
         $class = '\\Ebanx\\Command\\';

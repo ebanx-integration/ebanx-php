@@ -51,47 +51,47 @@ class CheckoutTest extends TestCase
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'currency_code' was not supplied.");
         unset($this->_params['currency_code']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateAmount()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'amount' was not supplied.");
         unset($this->_params['amount']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'name' was not supplied.");
         unset($this->_params['name']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateEmail()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'email' was not supplied.");
         unset($this->_params['email']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment_type_code' was not supplied.");
         unset($this->_params['payment_type_code']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateMerchantPaymentCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'merchant_payment_code' was not supplied.");
         unset($this->_params['merchant_payment_code']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testRequestIsCorrect()
     {
-        $request = $this->_ebanx->doRequest($this->_params);
+        $request = \Ebanx\Ebanx::doRequest($this->_params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/request', $request['action']);

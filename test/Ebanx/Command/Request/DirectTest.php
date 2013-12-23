@@ -37,7 +37,7 @@ class DirectTest extends TestCase
     {
         parent::setUp();
 
-        $this->_ebanx = $this->_getEbanxDirect();
+        $this->_getEbanxDirect();
 
         $this->_params = array(
           'mode'      => 'full',
@@ -67,112 +67,112 @@ class DirectTest extends TestCase
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'mode' was not supplied.");
         unset($this->_params['mode']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateOperation()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'operation' was not supplied.");
         unset($this->_params['operation']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateMerchantPaymentCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.merchant_payment_code' was not supplied.");
         unset($this->_params['payment']['merchant_payment_code']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateAmount()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.amount_total' was not supplied.");
         unset($this->_params['payment']['amount_total']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateCurrencyCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.currency_code' was not supplied.");
         unset($this->_params['payment']['currency_code']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.name' was not supplied.");
         unset($this->_params['payment']['name']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateEmail()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.email' was not supplied.");
         unset($this->_params['payment']['email']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateBirthDate()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.birth_date' was not supplied.");
         unset($this->_params['payment']['birth_date']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateDocument()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.document' was not supplied.");
         unset($this->_params['payment']['document']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateAddress()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.address' was not supplied.");
         unset($this->_params['payment']['address']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateStreetNumber()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.street_number' was not supplied.");
         unset($this->_params['payment']['street_number']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateCity()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.city' was not supplied.");
         unset($this->_params['payment']['city']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateState()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.state' was not supplied.");
         unset($this->_params['payment']['state']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidateZipcode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.zipcode' was not supplied.");
         unset($this->_params['payment']['zipcode']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidatePhoneNumber()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.phone_number' was not supplied.");
         unset($this->_params['payment']['phone_number']);
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.payment_type_code' was not supplied.");
         $this->_params['payment']['payment_type_code'] = NULL; // weird bug fix, undefined index payment_type_code
-        $this->_ebanx->doRequest($this->_params);
+        \Ebanx\Ebanx::doRequest($this->_params);
     }
 
     /**
@@ -192,22 +192,22 @@ class DirectTest extends TestCase
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_number' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['creditcard']['card_number']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_name' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['creditcard']['card_name']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_due_date' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['creditcard']['card_due_date']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_cvv' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['creditcard']['card_cvv']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
     }
 
     /**
@@ -226,17 +226,17 @@ class DirectTest extends TestCase
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_code' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['directdebit']['bank_code']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_agency' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['directdebit']['bank_agency']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_account' was not supplied.");
         $params = $this->_params;
         unset($params['payment']['directdebit']['bank_account']);
-        $this->_ebanx->doRequest($params);
+        \Ebanx\Ebanx::doRequest($params);
     }
 
     /**
@@ -246,7 +246,7 @@ class DirectTest extends TestCase
     public function testRequestIsCorrect()
     {
         // This request is returned as a JSON object
-        $request = $this->_ebanx->doRequest($this->_params);
+        $request = \Ebanx\Ebanx::doRequest($this->_params);
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);

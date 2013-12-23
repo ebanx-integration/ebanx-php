@@ -47,19 +47,19 @@ class RefundOrCancelTest extends TestCase
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'hash' was not supplied.");
         unset($this->_params['hash']);
-        $this->_ebanx->doRefundOrCancel($this->_params);
+        \Ebanx\Ebanx::doRefundOrCancel($this->_params);
     }
 
     public function testValidateDescription()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'description' was not supplied.");
         unset($this->_params['description']);
-        $this->_ebanx->doRefundOrCancel($this->_params);
+        \Ebanx\Ebanx::doRefundOrCancel($this->_params);
     }
 
     public function testRequest()
     {
-        $request = $this->_ebanx->doRefundOrCancel($this->_params);
+        $request = \Ebanx\Ebanx::doRefundOrCancel($this->_params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/refundOrCancel', $request['action']);

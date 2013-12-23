@@ -34,21 +34,34 @@ class ConfigTest extends TestCase
     public function testUrlChangesDependingOnMode()
     {
         \Ebanx\Config::set('testMode', false);
-        $this->assertEquals(\Ebanx\Config::getURL(), 'https://www.ebanx.com/pay/ws/');
+        $this->assertEquals('https://www.ebanx.com/pay/ws/', \Ebanx\Config::getURL());
 
         \Ebanx\Config::set('testMode', true);
-        $this->assertEquals(\Ebanx\Config::getURL(), 'https://www.ebanx.com/test/ws/');
+        $this->assertEquals('https://www.ebanx.com/test/ws/', \Ebanx\Config::getURL());
     }
 
     public function testSettingCanBeSetAndRetrieved()
     {
         \Ebanx\Config::set('testOption', 123);
-        $this->assertEquals(\Ebanx\Config::get('testOption'), 123);
+        $this->assertEquals(123, \Ebanx\Config::get('testOption'));
     }
 
     public function testInvalidSetting()
     {
         $this->setExpectedException('InvalidArgumentException');
         \Ebanx\Config::get('aRandomSetting');
+    }
+
+    public function testSetManySettings()
+    {
+        \Ebanx\Config::set(array(
+            'foo' => true
+          , 'bar' => '12345678'
+        ));
+
+        $this->assertEquals(true, \Ebanx\Config::getFoo());
+        $this->assertEquals(true, \Ebanx\Config::get('foo'));
+        $this->assertEquals('12345678', \Ebanx\Config::getBar());
+        $this->assertEquals('12345678', \Ebanx\Config::get('bar'));
     }
 }

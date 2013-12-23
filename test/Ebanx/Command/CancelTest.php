@@ -34,13 +34,13 @@ class CancelTest extends TestCase
     public function testValidateHash()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'hash' was not supplied.");
-        $this->_ebanx->doCancel(array());
+        \Ebanx\Ebanx::doCancel(array());
     }
 
     public function testCancelRequestIsCorrect()
     {
         $hash = md5(time());
-        $request = $this->_ebanx->doCancel(array('hash' => $hash));
+        $request = \Ebanx\Ebanx::doCancel(array('hash' => $hash));
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/cancel', $request['action']);

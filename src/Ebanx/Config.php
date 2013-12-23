@@ -57,9 +57,15 @@ class Config
     protected static $_settings = array();
 
     /**
-     * Protected constructor to avoid other instances
+     * Protected constructor to avoid other instances.
+     * Sets stuff to default values.
      */
-    protected function __construct() {}
+    protected function __construct()
+    {
+        self::$_settings['directMode'] = false;
+        self::$_settings['testMode']   = false;
+        self::$_settings['httpClient'] = '\\Ebanx\\Http\\Client';
+    }
 
     /**
      * Get the class instance (singleton)
@@ -79,6 +85,7 @@ class Config
      * Gets a setting value
      * @param string $key The setting name
      * @return mixed
+     * @throws InvalidArgumentException
      */
     public static function get($key)
     {
@@ -98,11 +105,23 @@ class Config
      * @param mixed $value The setting value
      * @return void
      */
-    public static function set($key, $value)
+    public static function set()
     {
         self::_getInstance();
 
-        self::$_settings[$key] = $value;
+        $args = func_get_args();
+
+        if (is_array($args[0]))
+        {
+            foreach ($args[0] as $key => $value)
+            {
+                self::$_settings[$key] = $value;
+            }
+        }
+        else
+        {
+            self::$_settings[$args[0]] = $args[1];
+        }
     }
 
     /**

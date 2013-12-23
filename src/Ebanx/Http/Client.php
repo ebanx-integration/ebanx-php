@@ -91,6 +91,7 @@ class Client
      * Set the request HTTP method
      * @param string $method The request HTTP method
      * @return Ebanx\Http\Client
+     * @throws InvalidArgumentException
      */
     public function setMethod($method)
     {

@@ -34,13 +34,13 @@ class PrintHtmlTest extends TestCase
     public function testValidateHash()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'hash' was not supplied.");
-        $this->_ebanx->doPrintHtml(array());
+        \Ebanx\Ebanx::doPrintHtml(array());
     }
 
     public function testRequest()
     {
         $hash = md5(time());
-        $request = $this->_ebanx->doPrintHtml(array('hash' => $hash));
+        $request = \Ebanx\Ebanx::doPrintHtml(array('hash' => $hash));
 
         $this->assertEquals('GET', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/boleto/printHTML', $request['action']);

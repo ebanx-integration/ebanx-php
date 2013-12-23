@@ -49,40 +49,40 @@ class RefundTest extends TestCase
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'operation' was not supplied.");
         unset($this->_params['operation']);
-        $this->_ebanx->doRefund($this->_params);
+        \Ebanx\Ebanx::doRefund($this->_params);
     }
 
     public function testValidateRequestHash()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'hash' was not supplied.");
         unset($this->_params['hash']);
-        $this->_ebanx->doRefund($this->_params);
+        \Ebanx\Ebanx::doRefund($this->_params);
     }
 
     public function testValidateRequestAmount()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'amount' was not supplied.");
         unset($this->_params['amount']);
-        $this->_ebanx->doRefund($this->_params);
+        \Ebanx\Ebanx::doRefund($this->_params);
     }
 
     public function testValidateRequestDescription()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'description' was not supplied.");
         unset($this->_params['description']);
-        $this->_ebanx->doRefund($this->_params);
+        \Ebanx\Ebanx::doRefund($this->_params);
     }
 
     public function testValidateCancelRefundCodeAndRefundID()
     {
         $this->setExpectedException('InvalidArgumentException', "Either the parameter 'merchant_refund_code' or 'refund_id' must be supplied.");
         $params = array('operation' => 'cancel');
-        $this->_ebanx->doRefund($params);
+        \Ebanx\Ebanx::doRefund($params);
     }
 
     public function testRequestCancel()
     {
-        $request = $this->_ebanx->doRefund($this->_params);
+        $request = \Ebanx\Ebanx::doRefund($this->_params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/refund', $request['action']);
@@ -100,7 +100,7 @@ class RefundTest extends TestCase
           , 'refund_id' => time()
         );
 
-        $request = $this->_ebanx->doRefund($params);
+        $request = \Ebanx\Ebanx::doRefund($params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/refund', $request['action']);
@@ -116,7 +116,7 @@ class RefundTest extends TestCase
           , 'merchant_refund_code' => time()
         );
 
-        $request = $this->_ebanx->doRefund($params);
+        $request = \Ebanx\Ebanx::doRefund($params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/refund', $request['action']);
