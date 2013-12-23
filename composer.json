@@ -3,7 +3,7 @@
     "description": "EBANX PHP library",
     "keywords": ["ebanx", "payment processing", "api"],
     "homepage": "https://ebanx.com",
-    "license": "MIT",
+    "license": "BSD",
     "authors": [
         {
             "name": "Gustavo Henrique Mascarenhas Machado",
