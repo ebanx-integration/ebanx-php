@@ -11,7 +11,7 @@ This library enables you to integrate EBANX with any PHP application.
 The EBANX library is available on Packagist (https://packagist.org/packages/ebanx/ebanx), 
 therefore you can install it by simple updating your composer.json file:
 
-```
+``` json
 {
   "require" : {
     "ebanx/ebanx": "dev-master"
@@ -28,12 +28,12 @@ from 'src/autoload.php'.
 ## Usage
 ### Setup
 To use the EBANX PHP library you only need to setup your integration key.
-```
+``` php
 \Ebanx\Config::setIntegrationKey('your-integration-key');
 ```
 
 If you need to change other settings, you can use the following function call: 
-```
+``` php
 \Ebanx\Config::set(array(
     'integrationKey' => 'your-integration-key'
   , 'testMode'       => true
@@ -45,6 +45,35 @@ You can change the following settings:
 * testMode: enable or disable the test mode. The default value is _false_.
 * directMode: enable or disable the direct checkout mode. The default value is _false_.
 
+To create a new API request, just call one of the following methods on the \Ebanx\Ebanx
+class and supply it with the requested parameters:
+* \Ebanx\Ebanx::doCancel
+* \Ebanx\Ebanx::doCapture
+* \Ebanx\Ebanx::doExchange
+* \Ebanx\Ebanx::doModify
+* \Ebanx\Ebanx::doPrintHtml
+* \Ebanx\Ebanx::doQuery
+* \Ebanx\Ebanx::doRefund
+* \Ebanx\Ebanx::doRefundOrCancel
+* \Ebanx\Ebanx::doRequest
+
+doRequest command example:
+``` php
+<?php
+
+require_once __DIR__ . 'vendor/autoload.php';
+
+\Ebanx\Config::setIntegrationKey('6e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff7');
+
+$request = \Ebanx\Ebanx::doRequest(array(
+    'currency_code'     => 'USD'
+  , 'amount'            => 119.90
+  , 'name'              => 'Jose da Silva'
+  , 'email'             => 'jose@example.org'
+  , 'payment_type_code' => 'boleto'
+  , 'merchant_payment_code' => '10101101'
+));
+```
 
 ## Changelog
 **1.0.0**: first release.
