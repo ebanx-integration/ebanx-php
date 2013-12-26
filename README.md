@@ -46,16 +46,16 @@ You can change the following settings:
 * directMode: enable or disable the direct checkout mode. The default value is _false_.
 
 To create a new API request, just call one of the following methods on the \Ebanx\Ebanx
-class and supply it with the requested parameters:
-* \Ebanx\Ebanx::doCancel()
-* \Ebanx\Ebanx::doCapture()
-* \Ebanx\Ebanx::doExchange()
-* \Ebanx\Ebanx::doModify()
-* \Ebanx\Ebanx::doPrintHtml()
-* \Ebanx\Ebanx::doQuery()
-* \Ebanx\Ebanx::doRefund()
-* \Ebanx\Ebanx::doRefundOrCancel()
-* \Ebanx\Ebanx::doRequest()
+class and supply it with the request parameters:
+* \Ebanx\Ebanx::doCancel
+* \Ebanx\Ebanx::doCapture
+* \Ebanx\Ebanx::doExchange
+* \Ebanx\Ebanx::doModify
+* \Ebanx\Ebanx::doPrintHtml
+* \Ebanx\Ebanx::doQuery
+* \Ebanx\Ebanx::doRefund
+* \Ebanx\Ebanx::doRefundOrCancel
+* \Ebanx\Ebanx::doRequest
 
 doRequest command example:
 ``` php
