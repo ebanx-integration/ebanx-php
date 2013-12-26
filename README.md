@@ -27,7 +27,7 @@ from 'src/autoload.php'.
 
 ## Usage
 ### Setup
-To use the EBANX PHP library you only need to setup your integration key.
+To use the EBANX PHP library you need to setup your integration key.
 ``` php
 \Ebanx\Config::setIntegrationKey('your-integration-key');
 ```
@@ -47,23 +47,21 @@ You can change the following settings:
 
 To create a new API request, just call one of the following methods on the \Ebanx\Ebanx
 class and supply it with the requested parameters:
-* \Ebanx\Ebanx::doCancel
-* \Ebanx\Ebanx::doCapture
-* \Ebanx\Ebanx::doExchange
-* \Ebanx\Ebanx::doModify
-* \Ebanx\Ebanx::doPrintHtml
-* \Ebanx\Ebanx::doQuery
-* \Ebanx\Ebanx::doRefund
-* \Ebanx\Ebanx::doRefundOrCancel
-* \Ebanx\Ebanx::doRequest
+* \Ebanx\Ebanx::doCancel()
+* \Ebanx\Ebanx::doCapture()
+* \Ebanx\Ebanx::doExchange()
+* \Ebanx\Ebanx::doModify()
+* \Ebanx\Ebanx::doPrintHtml()
+* \Ebanx\Ebanx::doQuery()
+* \Ebanx\Ebanx::doRefund()
+* \Ebanx\Ebanx::doRefundOrCancel()
+* \Ebanx\Ebanx::doRequest()
 
 doRequest command example:
 ``` php
-<?php
-
 require_once __DIR__ . 'vendor/autoload.php';
 
-\Ebanx\Config::setIntegrationKey('6e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff76e556ff7');
+\Ebanx\Config::setIntegrationKey('6e556ff76e55...56ff7');
 
 $request = \Ebanx\Ebanx::doRequest(array(
     'currency_code'     => 'USD'
