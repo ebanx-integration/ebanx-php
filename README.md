@@ -9,7 +9,7 @@ This library enables you to integrate EBANX with any PHP application.
 ## Installation
 ### Composer
 The EBANX library is available on Packagist (https://packagist.org/packages/ebanx/ebanx), 
-therefore you can install it by simple updating your composer.json file:
+therefore you can install it by simply updating your composer.json file:
 
 ``` json
 {
