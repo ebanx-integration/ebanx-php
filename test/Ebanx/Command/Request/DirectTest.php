@@ -32,6 +32,7 @@
 class DirectTest extends TestCase
 {
     protected $_params;
+    protected $_bizParams;
 
     public function setUp()
     {
@@ -59,6 +60,34 @@ class DirectTest extends TestCase
             'country'           => 'br',
             'phone_number'      => '4132332354',
             'payment_type_code' => 'boleto'
+          )
+        );
+
+        $this->_bizParams = array(
+          'mode'      => 'full',
+          'operation' => 'request',
+          'payment'   => array(
+            'merchant_payment_code' => time(),
+            'amount_total'      => 100,
+            'currency_code'     => 'USD',
+            'person_type'       => 'business',
+            'name'              => 'Acme Inc',
+            'email'             => 'acme@example.com',
+            'document'          => '73436722000167',
+            'address'           => 'AV MIRACATU',
+            'street_number'     => '2993',
+            'street_complement' => 'CJ 5',
+            'city'              => 'CURITIBA',
+            'state'             => 'PR',
+            'zipcode'           => '81500000',
+            'country'           => 'br',
+            'phone_number'      => '4132332354',
+            'payment_type_code' => 'boleto',
+            'responsible'       => array(
+                'name'       => 'José Silva',
+                'document'   => '25500376691',
+                'birth_date' => '01/01/1970'
+            )
           )
         );
     }
@@ -175,6 +204,27 @@ class DirectTest extends TestCase
         \Ebanx\Ebanx::doRequest($this->_params);
     }
 
+    public function testValidateBusinessResponsibleName()
+    {
+        $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.name' was not supplied.");
+        unset($this->_bizParams['payment']['responsible']['name']);
+        \Ebanx\Ebanx::doRequest($this->_bizParams);
+    }
+
+    public function testValidateBusinessResponsibleDocument()
+    {
+        $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.document' was not supplied.");
+        unset($this->_bizParams['payment']['responsible']['document']);
+        \Ebanx\Ebanx::doRequest($this->_bizParams);
+    }
+
+    public function testValidateBusinessResponsibleBirthdate()
+    {
+        $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.birth_date' was not supplied.");
+        unset($this->_bizParams['payment']['responsible']['birth_date']);
+        \Ebanx\Ebanx::doRequest($this->_bizParams);
+    }
+
     /**
      * Tests the full mode credit card validations
      * @todo refactor repetitive tests
@@ -243,7 +293,7 @@ class DirectTest extends TestCase
      * Tests a simple request
      * @todo refactor repetitive code
      */
-    public function testRequestIsCorrect()
+    public function testPersonRequestIsCorrect()
     {
         // This request is returned as a JSON object
         $request = \Ebanx\Ebanx::doRequest($this->_params);
@@ -270,5 +320,41 @@ class DirectTest extends TestCase
         $this->assertEquals($this->_params['payment']['country'], $params['payment']['country']);
         $this->assertEquals($this->_params['payment']['phone_number'], $params['payment']['phone_number']);
         $this->assertEquals($this->_params['payment']['payment_type_code'], $params['payment']['payment_type_code']);
+    }
+
+    /**
+     * Tests a simple business request
+     * @todo refactor repetitive code
+     */
+    public function testBusinessRequestIsCorrect()
+    {
+        // This request is returned as a JSON object
+        $request = \Ebanx\Ebanx::doRequest($this->_bizParams);
+        $params  = json_decode($request['params']['request_body'], true);
+
+        $this->assertEquals('POST', $request['method']);
+        $this->assertEquals('https://www.ebanx.com/pay/ws/direct', $request['action']);
+        $this->assertEquals(true, $request['decode'], true);
+        $this->assertEquals($this->_bizParams['mode'], $params['mode']);
+        $this->assertEquals($this->_bizParams['operation'], $params['operation']);
+        $this->assertEquals($this->_bizParams['payment']['person_type'], $params['payment']['person_type']);
+        $this->assertEquals($this->_bizParams['payment']['merchant_payment_code'], $params['payment']['merchant_payment_code']);
+        $this->assertEquals($this->_bizParams['payment']['amount_total'], $params['payment']['amount_total']);
+        $this->assertEquals($this->_bizParams['payment']['currency_code'], $params['payment']['currency_code']);
+        $this->assertEquals($this->_bizParams['payment']['name'], $params['payment']['name']);
+        $this->assertEquals($this->_bizParams['payment']['email'], $params['payment']['email']);
+        $this->assertEquals($this->_bizParams['payment']['document'], $params['payment']['document']);
+        $this->assertEquals($this->_bizParams['payment']['address'], $params['payment']['address']);
+        $this->assertEquals($this->_bizParams['payment']['street_number'], $params['payment']['street_number']);
+        $this->assertEquals($this->_bizParams['payment']['street_complement'], $params['payment']['street_complement']);
+        $this->assertEquals($this->_bizParams['payment']['city'], $params['payment']['city']);
+        $this->assertEquals($this->_bizParams['payment']['state'], $params['payment']['state']);
+        $this->assertEquals($this->_bizParams['payment']['zipcode'], $params['payment']['zipcode']);
+        $this->assertEquals($this->_bizParams['payment']['country'], $params['payment']['country']);
+        $this->assertEquals($this->_bizParams['payment']['phone_number'], $params['payment']['phone_number']);
+        $this->assertEquals($this->_bizParams['payment']['payment_type_code'], $params['payment']['payment_type_code']);
+        $this->assertEquals($this->_bizParams['payment']['responsible']['name'], $params['payment']['responsible']['name']);
+        $this->assertEquals($this->_bizParams['payment']['responsible']['document'], $params['payment']['responsible']['document']);
+        $this->assertEquals($this->_bizParams['payment']['responsible']['birth_date'], $params['payment']['responsible']['birth_date']);
     }
 }

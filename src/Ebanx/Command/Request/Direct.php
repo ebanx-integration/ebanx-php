@@ -69,7 +69,19 @@ class Direct extends \Ebanx\Command\AbstractCommand
         if ($this->_params['mode'] == 'full')
         {
             $validator->validatePresence('payment.document');
-            $validator->validatePresence('payment.birth_date');
+
+            // Business validation
+            if ($validator->exists('payment.person_type') && 
+                $this->_params['payment']['person_type'] == 'business')
+            {
+                $validator->validatePresence('payment.responsible.name');
+                $validator->validatePresence('payment.responsible.document');
+                $validator->validatePresence('payment.responsible.birth_date');
+            }
+            else
+            {
+                $validator->validatePresence('payment.birth_date');
+            }
 
             // Credit card on full mode
             if (in_array($this->_params['payment']['payment_type_code']
