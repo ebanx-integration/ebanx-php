@@ -41,7 +41,7 @@ class Config
     /**
      * The API URLs for test and production
      */
-    const URL_TEST       = 'https://www.ebanx.com/test/ws/';
+    const URL_TEST       = 'https://sandbox.ebanx.com/ws/';
     const URL_PRODUCTION = 'https://www.ebanx.com/pay/ws/';
 
     /**
