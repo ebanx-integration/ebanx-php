@@ -75,6 +75,7 @@ $request = \Ebanx\Ebanx::doRequest(array(
 ```
 
 ## Changelog
+**1.2.1**: updated autoloader and sandbox URL.
 **1.2.0**: added Token operation.
 **1.1.0**: added business person to Direct mode.
 **1.0.0**: first release.
