@@ -140,13 +140,28 @@ class Client
         $this->_setupCurl();
 
         $response = curl_exec($this->_curl);
-        curl_close($this->_curl);
 
-        // Decode JSON responses
-        if ($this->_decodeResponse)
+        if (curl_getinfo($this->_curl, CURLINFO_HTTP_CODE) === 200)
         {
-            $response = json_decode($response);
+            // Decode JSON responses
+            if ($this->_decodeResponse)
+            {
+                $response = json_decode($response);
+            }
         }
+        else
+        {
+            if (curl_errno($this->_curl))
+            {
+                throw new \RuntimeException('The HTTP request failed: ' . curl_error($this->_curl));
+            }
+            else
+            {
+                throw new \RuntimeException('The HTTP request failed: unknown error.');
+            }
+        }
+
+        curl_close($this->_curl);
 
         return $response;
     }

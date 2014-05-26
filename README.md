@@ -57,6 +57,7 @@ class and supply it with the request parameters:
 * \Ebanx\Ebanx::doRefundOrCancel
 * \Ebanx\Ebanx::doRequest
 * \Ebanx\Ebanx::doToken
+* \Ebanx\Ebanx::doZipcode
 
 doRequest command example:
 ``` php
@@ -75,6 +76,7 @@ $request = \Ebanx\Ebanx::doRequest(array(
 ```
 
 ## Changelog
+**1.3.0**: added Zipcode operation, improved HTTP Client error handling.
 **1.2.1**: updated autoloader and sandbox URL.
 **1.2.0**: added Token operation.
 **1.1.0**: added business person to Direct mode.
