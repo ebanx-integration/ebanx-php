@@ -31,13 +31,13 @@
 
 class TokenTest extends TestCase
 {
-    protected $_params;
+    protected $params;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_params = array(
+        $this->params = array(
             'payment_type_code' => 'visa'
           , 'creditcard'        => array(
                 'card_number'   => '4111111111111111'
@@ -51,36 +51,36 @@ class TokenTest extends TestCase
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment_type_code' was not supplied.");
-        unset($this->_params['payment_type_code']);
-        \Ebanx\Ebanx::doToken($this->_params);
+        unset($this->params['payment_type_code']);
+        \Ebanx\Ebanx::doToken($this->params);
     }
 
     public function testValidateCreditCardNumber()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'creditcard.card_number' was not supplied.");
-        unset($this->_params['creditcard']['card_number']);
-        \Ebanx\Ebanx::doToken($this->_params);
+        unset($this->params['creditcard']['card_number']);
+        \Ebanx\Ebanx::doToken($this->params);
     }
 
     public function testValidateCreditCardName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'creditcard.card_name' was not supplied.");
-        unset($this->_params['creditcard']['card_name']);
-        \Ebanx\Ebanx::doToken($this->_params);
+        unset($this->params['creditcard']['card_name']);
+        \Ebanx\Ebanx::doToken($this->params);
     }
 
     public function testValidateCreditCardDueDate()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'creditcard.card_due_date' was not supplied.");
-        unset($this->_params['creditcard']['card_due_date']);
-        \Ebanx\Ebanx::doToken($this->_params);
+        unset($this->params['creditcard']['card_due_date']);
+        \Ebanx\Ebanx::doToken($this->params);
     }
 
     public function testValidateCreditCardCVV()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'creditcard.card_cvv' was not supplied.");
-        unset($this->_params['creditcard']['card_cvv']);
-        \Ebanx\Ebanx::doToken($this->_params);
+        unset($this->params['creditcard']['card_cvv']);
+        \Ebanx\Ebanx::doToken($this->params);
     }
 
     /**
@@ -89,20 +89,20 @@ class TokenTest extends TestCase
      */
     public function testRequestToken()
     {
-        $request = \Ebanx\Ebanx::doToken($this->_params);
+        $request = \Ebanx\Ebanx::doToken($this->params);
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/token', $request['action']);
         $this->assertEquals(true, $request['decode']);
-        $this->assertEquals($this->_params['payment_type_code'], $params['payment_type_code']);
-        $this->assertEquals($this->_params['creditcard']['card_number'],
+        $this->assertEquals($this->params['payment_type_code'], $params['payment_type_code']);
+        $this->assertEquals($this->params['creditcard']['card_number'],
                             $params['creditcard']['card_number']);
-        $this->assertEquals($this->_params['creditcard']['card_name'],
+        $this->assertEquals($this->params['creditcard']['card_name'],
                             $params['creditcard']['card_name']);
-        $this->assertEquals($this->_params['creditcard']['card_due_date'],
+        $this->assertEquals($this->params['creditcard']['card_due_date'],
                             $params['creditcard']['card_due_date']);
-        $this->assertEquals($this->_params['creditcard']['card_cvv'],
+        $this->assertEquals($this->params['creditcard']['card_cvv'],
                             $params['creditcard']['card_cvv']);
     }
 }

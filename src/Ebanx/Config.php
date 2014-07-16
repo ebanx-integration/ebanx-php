@@ -48,13 +48,13 @@ class Config
      * The config object instance
      * @var \Ebanx\Config
      */
-    protected static $_instance = null;
+    protected static $instance = null;
 
     /**
      * Library settings array
      * @var array
      */
-    protected static $_settings = array();
+    protected static $settings = array();
 
     /**
      * Protected constructor to avoid other instances.
@@ -62,23 +62,23 @@ class Config
      */
     protected function __construct()
     {
-        self::$_settings['directMode'] = false;
-        self::$_settings['testMode']   = false;
-        self::$_settings['httpClient'] = '\\Ebanx\\Http\\Client';
+        self::$settings['directMode'] = false;
+        self::$settings['testMode']   = false;
+        self::$settings['httpClient'] = '\\Ebanx\\Http\\Client';
     }
 
     /**
      * Get the class instance (singleton)
      * @return \Ebanx\Config
      */
-    public static function _getInstance()
+    public static function getInstance()
     {
-        if (self::$_instance == null)
+        if (self::$instance == null)
         {
-            self::$_instance = new Config();
+            self::$instance = new Config();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -89,11 +89,11 @@ class Config
      */
     public static function get($key)
     {
-        self::_getInstance();
+        self::getInstance();
 
-        if (array_key_exists($key, self::$_settings))
+        if (array_key_exists($key, self::$settings))
         {
-            return self::$_settings[$key];
+            return self::$settings[$key];
         }
 
         throw new \InvalidArgumentException("The key $key doesn't exist in the Config Registry.");
@@ -107,7 +107,7 @@ class Config
      */
     public static function set()
     {
-        self::_getInstance();
+        self::getInstance();
 
         $args = func_get_args();
 
@@ -115,12 +115,12 @@ class Config
         {
             foreach ($args[0] as $key => $value)
             {
-                self::$_settings[$key] = $value;
+                self::$settings[$key] = $value;
             }
         }
         else
         {
-            self::$_settings[$args[0]] = $args[1];
+            self::$settings[$args[0]] = $args[1];
         }
     }
 
@@ -153,7 +153,7 @@ class Config
      */
     public static function getURL()
     {
-        if (self::$_settings['testMode'] == true)
+        if (self::$settings['testMode'] == true)
         {
             return self::URL_TEST;
         }

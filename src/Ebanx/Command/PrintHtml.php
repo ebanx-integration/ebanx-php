@@ -42,13 +42,13 @@ class PrintHtml extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'GET';
+    protected $method = 'GET';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'boleto/printHTML';
+    protected $action = 'boleto/printHTML';
 
     /**
      * The response type - HTML or JSON
@@ -62,7 +62,7 @@ class PrintHtml extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('hash');
     }

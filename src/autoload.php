@@ -18,9 +18,9 @@
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  */
 
-if (!class_exists('SplClassLoader'))
+if (!class_exists('EbanxSplClassLoader'))
 {
-    class SplClassLoader
+    class EbanxSplClassLoader
     {
         private $_fileExtension = '.php';
         private $_namespace;
@@ -142,5 +142,5 @@ if (!class_exists('SplClassLoader'))
 /**
  * Autoloader to be used in the absence of the Composer autoloader
  */
-$loader = new SplClassLoader('Ebanx', __DIR__);
+$loader = new EbanxSplClassLoader('Ebanx', __DIR__);
 $loader->register();

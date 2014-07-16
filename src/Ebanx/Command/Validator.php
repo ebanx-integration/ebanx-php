@@ -42,11 +42,11 @@ class Validator
      * The request parameters
      * @var array
      */
-    protected $_params;
+    protected $params;
 
     public function __construct($params)
     {
-        $this->_params = $params;
+        $this->params = $params;
     }
 
     /**
@@ -108,20 +108,20 @@ class Validator
             // Quick workaround
             if ($levels == 4)
             {
-                return isset($this->_params[$keys[0]][$keys[1]][$keys[2]][$keys3]);
+                return isset($this->params[$keys[0]][$keys[1]][$keys[2]][$keys3]);
             }
             else if ($levels == 3)
             {
-                return isset($this->_params[$keys[0]][$keys[1]][$keys[2]]);
+                return isset($this->params[$keys[0]][$keys[1]][$keys[2]]);
             }
             else
             {
-                return isset($this->_params[$keys[0]][$keys[1]]);
+                return isset($this->params[$keys[0]][$keys[1]]);
             }
         }
 
         // Non-nested array validation
-        if (array_key_exists($key, $this->_params))
+        if (array_key_exists($key, $this->params))
         {
             return true;
         }

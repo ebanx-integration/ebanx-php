@@ -31,13 +31,13 @@
 
 class CheckoutTest extends TestCase
 {
-    protected $_params;
+    protected $params;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_params = array(
+        $this->params = array(
             'currency_code' => 'USD'
           , 'amount'        => 100.00
           , 'name'          => 'José da Silva'
@@ -50,57 +50,57 @@ class CheckoutTest extends TestCase
     public function testValidateCurrencyCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'currency_code' was not supplied.");
-        unset($this->_params['currency_code']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['currency_code']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateAmount()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'amount' was not supplied.");
-        unset($this->_params['amount']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['amount']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'name' was not supplied.");
-        unset($this->_params['name']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['name']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateEmail()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'email' was not supplied.");
-        unset($this->_params['email']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['email']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment_type_code' was not supplied.");
-        unset($this->_params['payment_type_code']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment_type_code']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateMerchantPaymentCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'merchant_payment_code' was not supplied.");
-        unset($this->_params['merchant_payment_code']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['merchant_payment_code']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testRequestIsCorrect()
     {
-        $request = \Ebanx\Ebanx::doRequest($this->_params);
+        $request = \Ebanx\Ebanx::doRequest($this->params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/request', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
-        $this->assertEquals($this->_params['currency_code'], $request['params']['currency_code']);
-        $this->assertEquals($this->_params['amount'], $request['params']['amount']);
-        $this->assertEquals($this->_params['name'], $request['params']['name']);
-        $this->assertEquals($this->_params['email'], $request['params']['email']);
-        $this->assertEquals($this->_params['payment_type_code'], $request['params']['payment_type_code']);
-        $this->assertEquals($this->_params['merchant_payment_code'], $request['params']['merchant_payment_code']);
+        $this->assertEquals($this->params['currency_code'], $request['params']['currency_code']);
+        $this->assertEquals($this->params['amount'], $request['params']['amount']);
+        $this->assertEquals($this->params['name'], $request['params']['name']);
+        $this->assertEquals($this->params['email'], $request['params']['email']);
+        $this->assertEquals($this->params['payment_type_code'], $request['params']['payment_type_code']);
+        $this->assertEquals($this->params['merchant_payment_code'], $request['params']['merchant_payment_code']);
     }
 }

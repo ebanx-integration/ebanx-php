@@ -42,13 +42,13 @@ class Exchange extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'GET';
+    protected $method = 'GET';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'exchange';
+    protected $action = 'exchange';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class Exchange extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('currency_code');
     }

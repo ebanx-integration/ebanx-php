@@ -42,13 +42,13 @@ class Refund extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'refund';
+    protected $action = 'refund';
 
     /**
      * Validates the request parameters
@@ -56,12 +56,12 @@ class Refund extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('operation');
 
         // Validation for a new refund request
-        if ($this->_params['operation'] == 'request')
+        if ($this->params['operation'] == 'request')
         {
             $validator->validatePresence('hash');
             $validator->validatePresence('amount');

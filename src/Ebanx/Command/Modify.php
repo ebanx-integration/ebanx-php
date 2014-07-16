@@ -42,13 +42,13 @@ class Modify extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'modify';
+    protected $action = 'modify';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class Modify extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('mode');
         $validator->validatePresence('payment.currency_code');
@@ -65,12 +65,12 @@ class Modify extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('payment.name');
 
         // Full mode payment validation
-        if ($this->_params['mode'] == 'full')
+        if ($this->params['mode'] == 'full')
         {
             $validator->validatePresence('payment.document');
 
             // Credit card on full mode
-            if (in_array($this->_params['payment']['payment_type_code']
+            if (in_array($this->params['payment']['payment_type_code']
                 , array('visa', 'mastercard', 'amex', 'elo', 'diners', 'discover', 'aura')))
             {
                 $validator->validatePresence('payment.creditcard.card_number');
@@ -90,7 +90,7 @@ class Modify extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('payment.phone_number');
 
         // Direct debt payment validation
-        if ($this->_params['payment']['payment_type_code'] == 'directdebt')
+        if ($this->params['payment']['payment_type_code'] == 'directdebt')
         {
             $validator->validatePresence('payment.directdebit');
             $validator->validatePresence('payment.directdebit.bank_code');
@@ -99,7 +99,7 @@ class Modify extends \Ebanx\Command\AbstractCommand
         }
 
         // Gambiarration
-        $this->_params['integration_key'] = \Ebanx\Config::getIntegrationKey();
-        $this->_params = array('request_body' => json_encode($this->_params));
+        $this->params['integration_key'] = \Ebanx\Config::getIntegrationKey();
+        $this->params = array('request_body' => json_encode($this->params));
     }
 }

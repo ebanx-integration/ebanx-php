@@ -42,13 +42,13 @@ class Capture extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'GET';
+    protected $method = 'GET';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'capture';
+    protected $action = 'capture';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class Capture extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresenceOr('hash', 'merchant_payment_code');
     }

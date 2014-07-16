@@ -39,6 +39,12 @@ namespace Ebanx;
 class Ebanx
 {
     /**
+     * Library version
+     * @var string
+     */
+    const VERSION = '1.4.0';
+
+    /**
      * Magic method that calls the Command Factory
      * @param string $name The method name
      * @param string $args The method arguments ($args[0] for the parameters array)

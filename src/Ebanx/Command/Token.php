@@ -42,13 +42,13 @@ class Token extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'token';
+    protected $action = 'token';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class Token extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('payment_type_code');
         $validator->validatePresence('creditcard.card_number');
@@ -65,7 +65,7 @@ class Token extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('creditcard.card_cvv');
 
         // Gambiarration
-        $this->_params['integration_key'] = \Ebanx\Config::getIntegrationKey();
-        $this->_params = array('request_body' => json_encode($this->_params));
+        $this->params['integration_key'] = \Ebanx\Config::getIntegrationKey();
+        $this->params = array('request_body' => json_encode($this->params));
     }
 }

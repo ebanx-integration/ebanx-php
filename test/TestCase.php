@@ -43,7 +43,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         ));
     }
 
-    protected function _getEbanxDirect()
+    protected function getEbanxDirect()
     {
         \Ebanx\Config::setDirectMode(true);
     }

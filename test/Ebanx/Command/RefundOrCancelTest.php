@@ -31,13 +31,13 @@
 
 class RefundOrCancelTest extends TestCase
 {
-    protected $_params;
+    protected $params;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_params = array(
+        $this->params = array(
             'hash'        => md5(time())
           , 'description' => 'Lorem ipsum dolor sit amet.'
         );
@@ -46,25 +46,25 @@ class RefundOrCancelTest extends TestCase
     public function testValidateHash()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'hash' was not supplied.");
-        unset($this->_params['hash']);
-        \Ebanx\Ebanx::doRefundOrCancel($this->_params);
+        unset($this->params['hash']);
+        \Ebanx\Ebanx::doRefundOrCancel($this->params);
     }
 
     public function testValidateDescription()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'description' was not supplied.");
-        unset($this->_params['description']);
-        \Ebanx\Ebanx::doRefundOrCancel($this->_params);
+        unset($this->params['description']);
+        \Ebanx\Ebanx::doRefundOrCancel($this->params);
     }
 
     public function testRequest()
     {
-        $request = \Ebanx\Ebanx::doRefundOrCancel($this->_params);
+        $request = \Ebanx\Ebanx::doRefundOrCancel($this->params);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/refundOrCancel', $request['action']);
         $this->assertEquals(true, $request['decode']);
-        $this->assertEquals($this->_params['hash'], $request['params']['hash']);
-        $this->assertEquals($this->_params['description'], $request['params']['description']);
+        $this->assertEquals($this->params['hash'], $request['params']['hash']);
+        $this->assertEquals($this->params['description'], $request['params']['description']);
     }
 }

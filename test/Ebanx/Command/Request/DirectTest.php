@@ -31,16 +31,16 @@
 
 class DirectTest extends TestCase
 {
-    protected $_params;
-    protected $_bizParams;
+    protected $params;
+    protected $bizParams;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->_getEbanxDirect();
+        $this->getEbanxDirect();
 
-        $this->_params = array(
+        $this->params = array(
           'mode'      => 'full',
           'operation' => 'request',
           'payment'   => array(
@@ -63,7 +63,7 @@ class DirectTest extends TestCase
           )
         );
 
-        $this->_bizParams = array(
+        $this->bizParams = array(
           'mode'      => 'full',
           'operation' => 'request',
           'payment'   => array(
@@ -95,134 +95,134 @@ class DirectTest extends TestCase
     public function testValidateMode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'mode' was not supplied.");
-        unset($this->_params['mode']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['mode']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateOperation()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'operation' was not supplied.");
-        unset($this->_params['operation']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['operation']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateMerchantPaymentCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.merchant_payment_code' was not supplied.");
-        unset($this->_params['payment']['merchant_payment_code']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['merchant_payment_code']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateAmount()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.amount_total' was not supplied.");
-        unset($this->_params['payment']['amount_total']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['amount_total']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateCurrencyCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.currency_code' was not supplied.");
-        unset($this->_params['payment']['currency_code']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['currency_code']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.name' was not supplied.");
-        unset($this->_params['payment']['name']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['name']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateEmail()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.email' was not supplied.");
-        unset($this->_params['payment']['email']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['email']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateBirthDate()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.birth_date' was not supplied.");
-        unset($this->_params['payment']['birth_date']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['birth_date']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateDocument()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.document' was not supplied.");
-        unset($this->_params['payment']['document']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['document']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateAddress()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.address' was not supplied.");
-        unset($this->_params['payment']['address']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['address']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateStreetNumber()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.street_number' was not supplied.");
-        unset($this->_params['payment']['street_number']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['street_number']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateCity()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.city' was not supplied.");
-        unset($this->_params['payment']['city']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['city']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateState()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.state' was not supplied.");
-        unset($this->_params['payment']['state']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['state']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateZipcode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.zipcode' was not supplied.");
-        unset($this->_params['payment']['zipcode']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['zipcode']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidatePhoneNumber()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.phone_number' was not supplied.");
-        unset($this->_params['payment']['phone_number']);
-        \Ebanx\Ebanx::doRequest($this->_params);
+        unset($this->params['payment']['phone_number']);
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.payment_type_code' was not supplied.");
-        $this->_params['payment']['payment_type_code'] = NULL; // weird bug fix, undefined index payment_type_code
-        \Ebanx\Ebanx::doRequest($this->_params);
+        $this->params['payment']['payment_type_code'] = NULL; // weird bug fix, undefined index payment_type_code
+        \Ebanx\Ebanx::doRequest($this->params);
     }
 
     public function testValidateBusinessResponsibleName()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.name' was not supplied.");
-        unset($this->_bizParams['payment']['responsible']['name']);
-        \Ebanx\Ebanx::doRequest($this->_bizParams);
+        unset($this->bizParams['payment']['responsible']['name']);
+        \Ebanx\Ebanx::doRequest($this->bizParams);
     }
 
     public function testValidateBusinessResponsibleDocument()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.document' was not supplied.");
-        unset($this->_bizParams['payment']['responsible']['document']);
-        \Ebanx\Ebanx::doRequest($this->_bizParams);
+        unset($this->bizParams['payment']['responsible']['document']);
+        \Ebanx\Ebanx::doRequest($this->bizParams);
     }
 
     public function testValidateBusinessResponsibleBirthdate()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.responsible.birth_date' was not supplied.");
-        unset($this->_bizParams['payment']['responsible']['birth_date']);
-        \Ebanx\Ebanx::doRequest($this->_bizParams);
+        unset($this->bizParams['payment']['responsible']['birth_date']);
+        \Ebanx\Ebanx::doRequest($this->bizParams);
     }
 
     /**
@@ -231,8 +231,8 @@ class DirectTest extends TestCase
      */
     public function testValidateFullModeCards()
     {
-        $this->_params['payment']['payment_type_code'] = 'visa';
-        $this->_params['payment']['creditcard'] = array(
+        $this->params['payment']['payment_type_code'] = 'visa';
+        $this->params['payment']['creditcard'] = array(
             'card_number'   => '4444444444444444'
           , 'card_name'     => 'José da Silva'
           , 'card_due_date' => '10/2020'
@@ -240,22 +240,22 @@ class DirectTest extends TestCase
         );
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_number' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['creditcard']['card_number']);
         \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_name' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['creditcard']['card_name']);
         \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_due_date' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['creditcard']['card_due_date']);
         \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.creditcard.card_cvv' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['creditcard']['card_cvv']);
         \Ebanx\Ebanx::doRequest($params);
     }
@@ -266,25 +266,25 @@ class DirectTest extends TestCase
      */
     public function testValidateFullModeDirectDebit()
     {
-        $this->_params['payment']['payment_type_code'] = 'directdebit';
-        $this->_params['payment']['directdebit'] = array(
+        $this->params['payment']['payment_type_code'] = 'directdebit';
+        $this->params['payment']['directdebit'] = array(
             'bank_code'    => '1'
           , 'bank_agency'  => '1234'
           , 'bank_account' => '1234-5'
         );
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_code' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['directdebit']['bank_code']);
         \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_agency' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['directdebit']['bank_agency']);
         \Ebanx\Ebanx::doRequest($params);
 
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.directdebit.bank_account' was not supplied.");
-        $params = $this->_params;
+        $params = $this->params;
         unset($params['payment']['directdebit']['bank_account']);
         \Ebanx\Ebanx::doRequest($params);
     }
@@ -296,30 +296,30 @@ class DirectTest extends TestCase
     public function testPersonRequestIsCorrect()
     {
         // This request is returned as a JSON object
-        $request = \Ebanx\Ebanx::doRequest($this->_params);
+        $request = \Ebanx\Ebanx::doRequest($this->params);
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/direct', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
-        $this->assertEquals($this->_params['mode'], $params['mode']);
-        $this->assertEquals($this->_params['operation'], $params['operation']);
-        $this->assertEquals($this->_params['payment']['merchant_payment_code'], $params['payment']['merchant_payment_code']);
-        $this->assertEquals($this->_params['payment']['amount_total'], $params['payment']['amount_total']);
-        $this->assertEquals($this->_params['payment']['currency_code'], $params['payment']['currency_code']);
-        $this->assertEquals($this->_params['payment']['name'], $params['payment']['name']);
-        $this->assertEquals($this->_params['payment']['email'], $params['payment']['email']);
-        $this->assertEquals($this->_params['payment']['birth_date'], $params['payment']['birth_date']);
-        $this->assertEquals($this->_params['payment']['document'], $params['payment']['document']);
-        $this->assertEquals($this->_params['payment']['address'], $params['payment']['address']);
-        $this->assertEquals($this->_params['payment']['street_number'], $params['payment']['street_number']);
-        $this->assertEquals($this->_params['payment']['street_complement'], $params['payment']['street_complement']);
-        $this->assertEquals($this->_params['payment']['city'], $params['payment']['city']);
-        $this->assertEquals($this->_params['payment']['state'], $params['payment']['state']);
-        $this->assertEquals($this->_params['payment']['zipcode'], $params['payment']['zipcode']);
-        $this->assertEquals($this->_params['payment']['country'], $params['payment']['country']);
-        $this->assertEquals($this->_params['payment']['phone_number'], $params['payment']['phone_number']);
-        $this->assertEquals($this->_params['payment']['payment_type_code'], $params['payment']['payment_type_code']);
+        $this->assertEquals($this->params['mode'], $params['mode']);
+        $this->assertEquals($this->params['operation'], $params['operation']);
+        $this->assertEquals($this->params['payment']['merchant_payment_code'], $params['payment']['merchant_payment_code']);
+        $this->assertEquals($this->params['payment']['amount_total'], $params['payment']['amount_total']);
+        $this->assertEquals($this->params['payment']['currency_code'], $params['payment']['currency_code']);
+        $this->assertEquals($this->params['payment']['name'], $params['payment']['name']);
+        $this->assertEquals($this->params['payment']['email'], $params['payment']['email']);
+        $this->assertEquals($this->params['payment']['birth_date'], $params['payment']['birth_date']);
+        $this->assertEquals($this->params['payment']['document'], $params['payment']['document']);
+        $this->assertEquals($this->params['payment']['address'], $params['payment']['address']);
+        $this->assertEquals($this->params['payment']['street_number'], $params['payment']['street_number']);
+        $this->assertEquals($this->params['payment']['street_complement'], $params['payment']['street_complement']);
+        $this->assertEquals($this->params['payment']['city'], $params['payment']['city']);
+        $this->assertEquals($this->params['payment']['state'], $params['payment']['state']);
+        $this->assertEquals($this->params['payment']['zipcode'], $params['payment']['zipcode']);
+        $this->assertEquals($this->params['payment']['country'], $params['payment']['country']);
+        $this->assertEquals($this->params['payment']['phone_number'], $params['payment']['phone_number']);
+        $this->assertEquals($this->params['payment']['payment_type_code'], $params['payment']['payment_type_code']);
     }
 
     /**
@@ -329,32 +329,32 @@ class DirectTest extends TestCase
     public function testBusinessRequestIsCorrect()
     {
         // This request is returned as a JSON object
-        $request = \Ebanx\Ebanx::doRequest($this->_bizParams);
+        $request = \Ebanx\Ebanx::doRequest($this->bizParams);
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
         $this->assertEquals('https://www.ebanx.com/pay/ws/direct', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
-        $this->assertEquals($this->_bizParams['mode'], $params['mode']);
-        $this->assertEquals($this->_bizParams['operation'], $params['operation']);
-        $this->assertEquals($this->_bizParams['payment']['person_type'], $params['payment']['person_type']);
-        $this->assertEquals($this->_bizParams['payment']['merchant_payment_code'], $params['payment']['merchant_payment_code']);
-        $this->assertEquals($this->_bizParams['payment']['amount_total'], $params['payment']['amount_total']);
-        $this->assertEquals($this->_bizParams['payment']['currency_code'], $params['payment']['currency_code']);
-        $this->assertEquals($this->_bizParams['payment']['name'], $params['payment']['name']);
-        $this->assertEquals($this->_bizParams['payment']['email'], $params['payment']['email']);
-        $this->assertEquals($this->_bizParams['payment']['document'], $params['payment']['document']);
-        $this->assertEquals($this->_bizParams['payment']['address'], $params['payment']['address']);
-        $this->assertEquals($this->_bizParams['payment']['street_number'], $params['payment']['street_number']);
-        $this->assertEquals($this->_bizParams['payment']['street_complement'], $params['payment']['street_complement']);
-        $this->assertEquals($this->_bizParams['payment']['city'], $params['payment']['city']);
-        $this->assertEquals($this->_bizParams['payment']['state'], $params['payment']['state']);
-        $this->assertEquals($this->_bizParams['payment']['zipcode'], $params['payment']['zipcode']);
-        $this->assertEquals($this->_bizParams['payment']['country'], $params['payment']['country']);
-        $this->assertEquals($this->_bizParams['payment']['phone_number'], $params['payment']['phone_number']);
-        $this->assertEquals($this->_bizParams['payment']['payment_type_code'], $params['payment']['payment_type_code']);
-        $this->assertEquals($this->_bizParams['payment']['responsible']['name'], $params['payment']['responsible']['name']);
-        $this->assertEquals($this->_bizParams['payment']['responsible']['document'], $params['payment']['responsible']['document']);
-        $this->assertEquals($this->_bizParams['payment']['responsible']['birth_date'], $params['payment']['responsible']['birth_date']);
+        $this->assertEquals($this->bizParams['mode'], $params['mode']);
+        $this->assertEquals($this->bizParams['operation'], $params['operation']);
+        $this->assertEquals($this->bizParams['payment']['person_type'], $params['payment']['person_type']);
+        $this->assertEquals($this->bizParams['payment']['merchant_payment_code'], $params['payment']['merchant_payment_code']);
+        $this->assertEquals($this->bizParams['payment']['amount_total'], $params['payment']['amount_total']);
+        $this->assertEquals($this->bizParams['payment']['currency_code'], $params['payment']['currency_code']);
+        $this->assertEquals($this->bizParams['payment']['name'], $params['payment']['name']);
+        $this->assertEquals($this->bizParams['payment']['email'], $params['payment']['email']);
+        $this->assertEquals($this->bizParams['payment']['document'], $params['payment']['document']);
+        $this->assertEquals($this->bizParams['payment']['address'], $params['payment']['address']);
+        $this->assertEquals($this->bizParams['payment']['street_number'], $params['payment']['street_number']);
+        $this->assertEquals($this->bizParams['payment']['street_complement'], $params['payment']['street_complement']);
+        $this->assertEquals($this->bizParams['payment']['city'], $params['payment']['city']);
+        $this->assertEquals($this->bizParams['payment']['state'], $params['payment']['state']);
+        $this->assertEquals($this->bizParams['payment']['zipcode'], $params['payment']['zipcode']);
+        $this->assertEquals($this->bizParams['payment']['country'], $params['payment']['country']);
+        $this->assertEquals($this->bizParams['payment']['phone_number'], $params['payment']['phone_number']);
+        $this->assertEquals($this->bizParams['payment']['payment_type_code'], $params['payment']['payment_type_code']);
+        $this->assertEquals($this->bizParams['payment']['responsible']['name'], $params['payment']['responsible']['name']);
+        $this->assertEquals($this->bizParams['payment']['responsible']['document'], $params['payment']['responsible']['document']);
+        $this->assertEquals($this->bizParams['payment']['responsible']['birth_date'], $params['payment']['responsible']['birth_date']);
     }
 }

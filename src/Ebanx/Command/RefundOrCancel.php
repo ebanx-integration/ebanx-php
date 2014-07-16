@@ -42,13 +42,13 @@ class RefundOrCancel extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'refundOrCancel';
+    protected $action = 'refundOrCancel';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class RefundOrCancel extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('hash');
         $validator->validatePresence('description');

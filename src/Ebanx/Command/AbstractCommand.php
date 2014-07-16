@@ -42,19 +42,19 @@ abstract class AbstractCommand
      * Associative array of params
      * @var array
      */
-    protected $_params = array();
+    protected $params = array();
 
     /**
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = null;
+    protected $action = null;
 
     /**
      * The response type - HTML or JSON
@@ -68,7 +68,7 @@ abstract class AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    abstract protected function _validate($validator);
+    abstract protected function validate($validator);
 
     /**
      * Executes the command in the EBANX API
@@ -77,15 +77,15 @@ abstract class AbstractCommand
      */
     public function execute($params)
     {
-        $this->_params = $params;
-        $this->_validate(new \Ebanx\Command\Validator($this->_params));
+        $this->params = $params;
+        $this->validate(new \Ebanx\Command\Validator($this->params));
 
         // Get the HTTP client from the registry
         $httpClient = \Ebanx\Config::getHttpClient();
         $client = new $httpClient();
-        $client->setParams($this->_params)
-               ->setMethod($this->_method)
-               ->setAction($this->_action)
+        $client->setParams($this->params)
+               ->setMethod($this->method)
+               ->setAction($this->action)
                ->setResponseType($this->_responseType);
 
         return $client->send();

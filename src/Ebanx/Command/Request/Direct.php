@@ -42,13 +42,13 @@ class Direct extends \Ebanx\Command\AbstractCommand
      * The HTTP method
      * @var string
      */
-    protected $_method = 'POST';
+    protected $method = 'POST';
 
     /**
      * The action URL address
      * @var string
      */
-    protected $_action = 'direct';
+    protected $action = 'direct';
 
     /**
      * Validates the request parameters
@@ -56,7 +56,7 @@ class Direct extends \Ebanx\Command\AbstractCommand
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function _validate($validator)
+    protected function validate($validator)
     {
         $validator->validatePresence('operation');
         $validator->validatePresence('mode');
@@ -66,13 +66,13 @@ class Direct extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('payment.name');
 
         // Full mode payment validation
-        if ($this->_params['mode'] == 'full')
+        if ($this->params['mode'] == 'full')
         {
             $validator->validatePresence('payment.document');
 
             // Business validation
-            if ($validator->exists('payment.person_type') && 
-                $this->_params['payment']['person_type'] == 'business')
+            if ($validator->exists('payment.person_type') &&
+                $this->params['payment']['person_type'] == 'business')
             {
                 $validator->validatePresence('payment.responsible.name');
                 $validator->validatePresence('payment.responsible.document');
@@ -84,7 +84,7 @@ class Direct extends \Ebanx\Command\AbstractCommand
             }
 
             // Credit card on full mode
-            if (in_array($this->_params['payment']['payment_type_code']
+            if (in_array($this->params['payment']['payment_type_code']
                 , array('visa', 'mastercard', 'amex', 'elo', 'diners', 'discover', 'aura')))
             {
                 $validator->validatePresence('payment.creditcard.card_number');
@@ -104,7 +104,7 @@ class Direct extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('payment.phone_number');
 
         // Direct debt payment validation
-        if ($this->_params['payment']['payment_type_code'] == 'directdebit')
+        if ($this->params['payment']['payment_type_code'] == 'directdebit')
         {
             $validator->validatePresence('payment.directdebit.bank_code');
             $validator->validatePresence('payment.directdebit.bank_agency');
@@ -112,7 +112,7 @@ class Direct extends \Ebanx\Command\AbstractCommand
         }
 
         // Gambiarration
-        $this->_params['integration_key'] = \Ebanx\Config::getIntegrationKey();
-        $this->_params = array('request_body' => json_encode($this->_params));
+        $this->params['integration_key'] = \Ebanx\Config::getIntegrationKey();
+        $this->params = array('request_body' => json_encode($this->params));
     }
 }

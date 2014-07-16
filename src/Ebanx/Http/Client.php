@@ -31,6 +31,8 @@
 
 namespace Ebanx\Http;
 
+use Ebanx\Config;
+
 /**
  * HTTP client class, wrapper for curl_* functions
  *
@@ -42,37 +44,37 @@ class Client
      * The cURL resource
      * @var resource
      */
-    protected $_curl;
+    protected $curl;
 
     /**
      * The request HTTP method
      * @var string
      */
-    protected $_method;
+    protected $method;
 
     /**
      * The allowed HTTP methods
      * @var array
      */
-    protected $_allowedMethods = array('POST', 'GET');
+    protected $allowedMethods = array('POST', 'GET');
 
     /**
      * The HTTP action (URI)
      * @var string
      */
-    protected $_action;
+    protected $action;
 
     /**
      * The request parameters
      * @var array
      */
-    protected $_params;
+    protected $params;
 
     /**
      * Flag to call json_decode on response
      * @var boolean
      */
-    protected $_decodeResponse = false;
+    protected $decodeResponse = false;
 
     /**
      * Set the request parameters
@@ -81,8 +83,8 @@ class Client
      */
     public function setParams($params)
     {
-        $this->_params = $params;
-        $this->_params['integration_key'] = \Ebanx\Config::getIntegrationKey();
+        $this->params = $params;
+        $this->params['integration_key'] = Config::getIntegrationKey();
 
         return $this;
     }
@@ -95,12 +97,12 @@ class Client
      */
     public function setMethod($method)
     {
-        if (!in_array(strtoupper($method), $this->_allowedMethods))
+        if (!in_array(strtoupper($method), $this->allowedMethods))
         {
           throw new \InvalidArgumentException("The HTTP Client doesn't accept $method requests.");
         }
 
-        $this->_method = $method;
+        $this->method = $method;
         return $this;
     }
 
@@ -111,7 +113,7 @@ class Client
      */
     public function setAction($action)
     {
-        $this->_action = \Ebanx\Config::getURL() . $action;
+        $this->action = Config::getURL() . $action;
         return $this;
     }
 
@@ -125,7 +127,7 @@ class Client
     {
         if (strtoupper($responseType) == 'JSON')
         {
-            $this->_decodeResponse = true;
+            $this->decodeResponse = true;
         }
 
         return $this;
@@ -139,21 +141,21 @@ class Client
     {
         $this->_setupCurl();
 
-        $response = curl_exec($this->_curl);
+        $response = curl_exec($this->curl);
 
-        if (curl_getinfo($this->_curl, CURLINFO_HTTP_CODE) === 200)
+        if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE) === 200)
         {
             // Decode JSON responses
-            if ($this->_decodeResponse)
+            if ($this->decodeResponse)
             {
                 $response = json_decode($response);
             }
         }
         else
         {
-            if (curl_errno($this->_curl))
+            if (curl_errno($this->curl))
             {
-                throw new \RuntimeException('The HTTP request failed: ' . curl_error($this->_curl));
+                throw new \RuntimeException('The HTTP request failed: ' . curl_error($this->curl));
             }
             else
             {
@@ -161,7 +163,7 @@ class Client
             }
         }
 
-        curl_close($this->_curl);
+        curl_close($this->curl);
 
         return $response;
     }
@@ -172,22 +174,25 @@ class Client
      */
     protected function _setupCurl()
     {
-        $params = http_build_query($this->_params);
+        $params = http_build_query($this->params);
 
         // POST requests
-        if ($this->_method == 'POST')
+        if ($this->method == 'POST')
         {
-            $this->_curl = curl_init($this->_action);
-            curl_setopt($this->_curl, CURLOPT_POST, true);
-            curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $params);
+            $this->curl = curl_init($this->action);
+            curl_setopt($this->curl, CURLOPT_POST, true);
+            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $params);
         }
         // GET requests
-        else if ($this->_method == 'GET')
+        else if ($this->method == 'GET')
         {
-            $this->_curl = curl_init($this->_action . '?' . $params);
+            $this->curl = curl_init($this->action . '?' . $params);
         }
 
         // We want to receive the returned data
-        curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+
+        // Setup custom user agent
+         curl_setopt($this->curl, CURLOPT_USERAGENT, 'EBANX PHP Library ' . \Ebanx\Ebanx::VERSION);
     }
 }

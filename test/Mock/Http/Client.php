@@ -40,10 +40,10 @@ class Client extends \Ebanx\Http\Client
     public function send()
     {
         return array(
-            'method' => $this->_method
-          , 'action' => $this->_action
-          , 'params' => $this->_params
-          , 'decode' => $this->_decodeResponse
+            'method' => $this->method
+          , 'action' => $this->action
+          , 'params' => $this->params
+          , 'decode' => $this->decodeResponse
         );
     }
 }
