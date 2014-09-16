@@ -76,6 +76,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.4.1**: updated production URL.
 * **1.4.0**: added custom user agent, made library PSR compliant.
 * **1.3.0**: added Zipcode operation, improved HTTP Client error handling.
 * **1.2.1**: updated autoloader and sandbox URL.
