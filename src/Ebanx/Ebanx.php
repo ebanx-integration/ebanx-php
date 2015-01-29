@@ -42,7 +42,7 @@ class Ebanx
      * Library version
      * @var string
      */
-    const VERSION = '1.4.0';
+    const VERSION = '1.5.0';
 
     /**
      * Magic method that calls the Command Factory

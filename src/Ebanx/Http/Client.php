@@ -32,6 +32,7 @@
 namespace Ebanx\Http;
 
 use Ebanx\Config;
+use GuzzleHttp;
 
 /**
  * HTTP client class, wrapper for curl_* functions
@@ -40,12 +41,6 @@ use Ebanx\Config;
  */
 class Client
 {
-    /**
-     * The cURL resource
-     * @var resource
-     */
-    protected $curl;
-
     /**
      * The request HTTP method
      * @var string
@@ -139,60 +134,40 @@ class Client
      */
     public function send()
     {
-        $this->_setupCurl();
+        $client = new GuzzleHttp\Client();
 
-        $response = curl_exec($this->curl);
+        $options = array(
+            'headers' => array(
+                'User-Agent' => 'EBANX PHP Library ' . \Ebanx\Ebanx::VERSION
+            )
+          , 'body'  => ($this->method == 'POST') ? $this->params : ''
+          , 'query' => ($this->method == 'GET')  ? $this->params : []
+        );
 
-        if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE) === 200)
+        try
         {
-            // Decode JSON responses
+            $response = $client->{$this->method}($this->action, $options);
+        }
+        catch (\Exception $e)
+        {
+            if ($e->hasResponse())
+            {
+                throw new \RuntimeException('The HTTP request failed: ' . $e->getResponse());
+            }
+
+            throw new \RuntimeException('The HTTP request failed: unknown reason');
+        }
+
+        if ($response->getStatusCode() == '200')
+        {
             if ($this->decodeResponse)
             {
-                $response = json_decode($response);
+                return json_decode($response->getBody());
             }
-        }
-        else
-        {
-            if (curl_errno($this->curl))
-            {
-                throw new \RuntimeException('The HTTP request failed: ' . curl_error($this->curl));
-            }
-            else
-            {
-                throw new \RuntimeException('The HTTP request failed: unknown error.');
-            }
+
+            return $response->getBody();
         }
 
-        curl_close($this->curl);
-
-        return $response;
-    }
-
-    /**
-     * Initialize the cURL resource
-     * @return void
-     */
-    protected function _setupCurl()
-    {
-        $params = http_build_query($this->params);
-
-        // POST requests
-        if ($this->method == 'POST')
-        {
-            $this->curl = curl_init($this->action);
-            curl_setopt($this->curl, CURLOPT_POST, true);
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $params);
-        }
-        // GET requests
-        else if ($this->method == 'GET')
-        {
-            $this->curl = curl_init($this->action . '?' . $params);
-        }
-
-        // We want to receive the returned data
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-
-        // Setup custom user agent
-         curl_setopt($this->curl, CURLOPT_USERAGENT, 'EBANX PHP Library ' . \Ebanx\Ebanx::VERSION);
+        throw new \RuntimeException('The HTTP response returned the code ' . $response->getStatusCode());
     }
 }

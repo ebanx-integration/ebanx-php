@@ -300,7 +300,7 @@ class DirectTest extends TestCase
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://www.ebanx.com/pay/ws/direct', $request['action']);
+        $this->assertEquals('https://api.ebanx.com/ws/direct', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
         $this->assertEquals($this->params['mode'], $params['mode']);
         $this->assertEquals($this->params['operation'], $params['operation']);
@@ -333,7 +333,7 @@ class DirectTest extends TestCase
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://www.ebanx.com/pay/ws/direct', $request['action']);
+        $this->assertEquals('https://api.ebanx.com/ws/direct', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
         $this->assertEquals($this->bizParams['mode'], $params['mode']);
         $this->assertEquals($this->bizParams['operation'], $params['operation']);

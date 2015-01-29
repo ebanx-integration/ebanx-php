@@ -34,7 +34,7 @@ class ConfigTest extends TestCase
     public function testUrlChangesDependingOnMode()
     {
         \Ebanx\Config::set('testMode', false);
-        $this->assertEquals('https://www.ebanx.com/pay/ws/', \Ebanx\Config::getURL());
+        $this->assertEquals('https://api.ebanx.com/ws/', \Ebanx\Config::getURL());
 
         \Ebanx\Config::set('testMode', true);
         $this->assertEquals('https://sandbox.ebanx.com/ws/', \Ebanx\Config::getURL());

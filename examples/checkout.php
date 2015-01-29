@@ -2,6 +2,7 @@
 
 require_once 'bootstrap.php';
 
+\Ebanx\Config::setDirectMode(false);
 $request = \Ebanx\Ebanx::doRequest(array(
     'currency_code'     => 'USD'
   , 'amount'            => 119.90
