@@ -50,7 +50,6 @@ class and supply it with the request parameters:
 * \Ebanx\Ebanx::doCancel
 * \Ebanx\Ebanx::doCapture
 * \Ebanx\Ebanx::doExchange
-* \Ebanx\Ebanx::doModify
 * \Ebanx\Ebanx::doPrintHtml
 * \Ebanx\Ebanx::doQuery
 * \Ebanx\Ebanx::doRefund
@@ -76,6 +75,8 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.5.1**: removed _modify_ method, removed _request_ constraints
+* **1.5.0**: changed HTTP client to Guzzle
 * **1.4.1**: updated production URL.
 * **1.4.0**: added custom user agent, made library PSR compliant.
 * **1.3.0**: added Zipcode operation, improved HTTP Client error handling.

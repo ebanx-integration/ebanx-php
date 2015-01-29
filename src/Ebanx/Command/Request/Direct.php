@@ -64,52 +64,8 @@ class Direct extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('payment.amount_total');
         $validator->validatePresence('payment.merchant_payment_code');
         $validator->validatePresence('payment.name');
-
-        // Full mode payment validation
-        if ($this->params['mode'] == 'full')
-        {
-            $validator->validatePresence('payment.document');
-
-            // Business validation
-            if ($validator->exists('payment.person_type') &&
-                $this->params['payment']['person_type'] == 'business')
-            {
-                $validator->validatePresence('payment.responsible.name');
-                $validator->validatePresence('payment.responsible.document');
-                $validator->validatePresence('payment.responsible.birth_date');
-            }
-            else
-            {
-                $validator->validatePresence('payment.birth_date');
-            }
-
-            // Credit card on full mode
-            if (in_array($this->params['payment']['payment_type_code']
-                , array('visa', 'mastercard', 'amex', 'elo', 'diners', 'discover', 'aura')))
-            {
-                $validator->validatePresence('payment.creditcard.card_number');
-                $validator->validatePresence('payment.creditcard.card_name');
-                $validator->validatePresence('payment.creditcard.card_due_date');
-                $validator->validatePresence('payment.creditcard.card_cvv');
-            }
-        }
-
         $validator->validatePresence('payment.email');
         $validator->validatePresence('payment.payment_type_code');
-        $validator->validatePresence('payment.zipcode');
-        $validator->validatePresence('payment.address');
-        $validator->validatePresence('payment.street_number');
-        $validator->validatePresence('payment.city');
-        $validator->validatePresence('payment.state');
-        $validator->validatePresence('payment.phone_number');
-
-        // Direct debt payment validation
-        if ($this->params['payment']['payment_type_code'] == 'directdebit')
-        {
-            $validator->validatePresence('payment.directdebit.bank_code');
-            $validator->validatePresence('payment.directdebit.bank_agency');
-            $validator->validatePresence('payment.directdebit.bank_account');
-        }
 
         // Gambiarration
         $this->params['integration_key'] = \Ebanx\Config::getIntegrationKey();
