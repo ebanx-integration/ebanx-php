@@ -134,6 +134,22 @@ class Client
      */
     public function send()
     {
+        // If the curl extension is loaded, use Guzzle
+        if (extension_loaded('curl'))
+        {
+            return $this->sendByWrapper();
+        }
+
+        // Otherwise use PHP streams
+        return $this->sendByStream();
+    }
+
+    /**
+     * Sends the request using a wrapper (Guzzle)
+     * @return string
+     */
+    protected function sendByWrapper()
+    {
         $client = new GuzzleHttp\Client();
 
         $options = array(
@@ -169,5 +185,43 @@ class Client
         }
 
         throw new \RuntimeException('The HTTP response returned the code ' . $response->getStatusCode());
+    }
+
+    /**
+     * Send the request using PHP streams
+     * @return string
+     */
+    public function sendByStream()
+    {
+        if (!ini_get('allow_url_fopen'))
+        {
+            throw new \RuntimeException('allow_url_fopen must be enabled to use PHP streams.');
+        }
+
+        $params = http_build_query($this->params);
+        $uri    = ($this->method == 'GET') ? ($this->action . '?' . $params) : $this->action;
+
+        $context = stream_context_create(array(
+            'http' => array(
+                'method' => $this->method
+              , 'header' => "Content-Type: application/x-www-form-urlencoded \r" .
+                            "User-Agent EBANX PHP Library " . \Ebanx\Ebanx::VERSION . "\r\n"
+              , 'content' => ($this->method == 'GET') ? '' : $params
+            )
+        ));
+
+        $response = file_get_contents($uri, false, $context);
+
+        if ($response && strlen($response))
+        {
+            if ($this->decodeResponse)
+            {
+                return json_decode($response);
+            }
+
+            return $response;
+        }
+
+        throw new \RuntimeException("Bad HTTP request: {$response}");
     }
 }
