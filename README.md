@@ -75,6 +75,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.6.1**: removed manual autoloader
 * **1.6.0**: added fallback HTTP client for environments without curl
 * **1.5.1**: removed _modify_ method, removed _request_ constraints
 * **1.5.0**: changed HTTP client to Guzzle
