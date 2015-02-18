@@ -134,65 +134,6 @@ class Client
      */
     public function send()
     {
-        // If the curl extension is loaded, use Guzzle
-        if (extension_loaded('curl'))
-        {
-            return $this->sendByWrapper();
-        }
-
-        // Otherwise use PHP streams
-        return $this->sendByStream();
-    }
-
-    /**
-     * Sends the request using a wrapper (Guzzle)
-     * @return string
-     */
-    protected function sendByWrapper()
-    {
-        $client = new GuzzleHttp\Client();
-
-        $options = array(
-            'headers' => array(
-                'User-Agent' => 'EBANX PHP Library ' . \Ebanx\Ebanx::VERSION
-            )
-          , 'body'  => ($this->method == 'POST') ? $this->params : ''
-          , 'query' => ($this->method == 'GET')  ? $this->params : []
-        );
-
-        try
-        {
-            $response = $client->{$this->method}($this->action, $options);
-        }
-        catch (\Exception $e)
-        {
-            if ($e->hasResponse())
-            {
-                throw new \RuntimeException('The HTTP request failed: ' . $e->getResponse());
-            }
-
-            throw new \RuntimeException('The HTTP request failed: unknown reason');
-        }
-
-        if ($response->getStatusCode() == '200')
-        {
-            if ($this->decodeResponse)
-            {
-                return json_decode($response->getBody());
-            }
-
-            return $response->getBody();
-        }
-
-        throw new \RuntimeException('The HTTP response returned the code ' . $response->getStatusCode());
-    }
-
-    /**
-     * Send the request using PHP streams
-     * @return string
-     */
-    public function sendByStream()
-    {
         if (!ini_get('allow_url_fopen'))
         {
             throw new \RuntimeException('allow_url_fopen must be enabled to use PHP streams.');
