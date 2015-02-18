@@ -29,43 +29,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Ebanx;
-
-/**
- * The EBANX API client
- *
- * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
- */
-class Ebanx
-{
-    /**
-     * Library version
-     * @var string
-     */
-    const VERSION = '1.7.0';
-
-    /**
-     * Magic method that calls the Command Factory
-     * @param string $name The method name
-     * @param string $args The method arguments ($args[0] for the parameters array)
-     * @return mixed
-     * @throws InvalidArgumentException
-     */
-    public static function __callStatic($name, $args)
-    {
-        if (preg_match('/^do[\w]+/', $name))
-        {
-            if (!isset($args[0]))
-            {
-                throw new \InvalidArgumentException('The command call received no arguments.');
-            }
-
-            $command = \Ebanx\Command\Factory::build($name);
-            return $command->execute($args[0]);
-        }
-        else
-        {
-            throw new \InvalidArgumentException("The command $name doesn't exist.");
-        }
-    }
-}
+require_once 'Ebanx/Ebanx.php';
+require_once 'Ebanx/Config.php';
+require_once 'Ebanx/Http/Client.php';
+require_once 'Ebanx/Command/AbstractCommand.php';
+require_once 'Ebanx/Command/Factory.php';
+require_once 'Ebanx/Command/Validator.php';
+require_once 'Ebanx/Command/Request/Direct.php';
+require_once 'Ebanx/Command/Request/Checkout.php';
+require_once 'Ebanx/Command/Cancel.php';
+require_once 'Ebanx/Command/Capture.php';
+require_once 'Ebanx/Command/Exchange.php';
+require_once 'Ebanx/Command/PrintHtml.php';
+require_once 'Ebanx/Command/Query.php';
+require_once 'Ebanx/Command/Refund.php';
+require_once 'Ebanx/Command/RefundOrCancel.php';
+require_once 'Ebanx/Command/Token.php';
+require_once 'Ebanx/Command/Zipcode.php';
