@@ -1,4 +1,4 @@
-# EBANX PHP Library [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-php.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-php)
+# EBANX PHP Library [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-php.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-php) [![Code Climate](https://codeclimate.com/github/ebanx-integration/ebanx-php/badges/gpa.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-php)
 EBANX is the market leader in e-commerce payment solutions for International Merchants selling online to Brazil.
 This library enables you to integrate EBANX with any PHP application.
 
@@ -8,7 +8,7 @@ This library enables you to integrate EBANX with any PHP application.
 
 ## Installation
 ### Composer
-The EBANX library is available on Packagist (https://packagist.org/packages/ebanx/ebanx), 
+The EBANX library is available on Packagist (https://packagist.org/packages/ebanx/ebanx),
 therefore you can install it by simply updating your composer.json file:
 
 ``` json
@@ -32,7 +32,7 @@ To use the EBANX PHP library you need to setup your integration key.
 \Ebanx\Config::setIntegrationKey('your-integration-key');
 ```
 
-If you need to change other settings, you can use the following function call: 
+If you need to change other settings, you can use the following function call:
 ``` php
 \Ebanx\Config::set([
     'integrationKey' => 'your-integration-key'
