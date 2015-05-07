@@ -1,4 +1,4 @@
-# EBANX PHP Library
+# EBANX PHP Library [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-php.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-php)
 EBANX is the market leader in e-commerce payment solutions for International Merchants selling online to Brazil.
 This library enables you to integrate EBANX with any PHP application.
 
