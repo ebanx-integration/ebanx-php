@@ -29,21 +29,36 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-require_once 'Ebanx/Ebanx.php';
-require_once 'Ebanx/Config.php';
-require_once 'Ebanx/Http/Client.php';
-require_once 'Ebanx/Command/AbstractCommand.php';
-require_once 'Ebanx/Command/Factory.php';
-require_once 'Ebanx/Command/Validator.php';
-require_once 'Ebanx/Command/Request/Direct.php';
-require_once 'Ebanx/Command/Request/Checkout.php';
-require_once 'Ebanx/Command/Cancel.php';
-require_once 'Ebanx/Command/Capture.php';
-require_once 'Ebanx/Command/Exchange.php';
-require_once 'Ebanx/Command/PrintHtml.php';
-require_once 'Ebanx/Command/Query.php';
-require_once 'Ebanx/Command/Refund.php';
-require_once 'Ebanx/Command/RefundOrCancel.php';
-require_once 'Ebanx/Command/Token.php';
-require_once 'Ebanx/Command/Zipcode.php';
-require_once 'Ebanx/Command/DocumentBalance.php';
+namespace Ebanx\Command;
+
+/**
+ * Command for the 'documentBalance' action
+ *
+ * @author Heitor Dolinski heitor@ebanx.com
+ */
+class DocumentBalance extends \Ebanx\Command\AbstractCommand
+{
+    /**
+     * The HTTP method
+     * @var string
+     */
+    protected $method = 'GET';
+
+    /**
+     * The action URL address
+     * @var string
+     */
+    protected $action = 'documentbalance';
+
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function validate($validator)
+    {
+        $validator->validatePresence('document');
+        $validator->validatePresence('currency_code');
+    }
+}

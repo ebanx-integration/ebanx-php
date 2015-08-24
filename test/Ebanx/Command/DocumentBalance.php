@@ -29,21 +29,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-require_once 'Ebanx/Ebanx.php';
-require_once 'Ebanx/Config.php';
-require_once 'Ebanx/Http/Client.php';
-require_once 'Ebanx/Command/AbstractCommand.php';
-require_once 'Ebanx/Command/Factory.php';
-require_once 'Ebanx/Command/Validator.php';
-require_once 'Ebanx/Command/Request/Direct.php';
-require_once 'Ebanx/Command/Request/Checkout.php';
-require_once 'Ebanx/Command/Cancel.php';
-require_once 'Ebanx/Command/Capture.php';
-require_once 'Ebanx/Command/Exchange.php';
-require_once 'Ebanx/Command/PrintHtml.php';
-require_once 'Ebanx/Command/Query.php';
-require_once 'Ebanx/Command/Refund.php';
-require_once 'Ebanx/Command/RefundOrCancel.php';
-require_once 'Ebanx/Command/Token.php';
-require_once 'Ebanx/Command/Zipcode.php';
-require_once 'Ebanx/Command/DocumentBalance.php';
+class DocumentBalanceTest extends TestCase
+{
+    public function testValidateCurrencyCode()
+    {
+        $this->setExpectedException('InvalidArgumentException', "The parameter 'currency_code' was not supplied.");
+        \Ebanx\Ebanx::doDocumentBalance(array());
+    }
+
+    public function testRequest()
+    {
+        $request = \Ebanx\Ebanx::doDocumentBalance(array('currency_code' => 'USD', 'document' => '88282672165'));
+
+        $this->assertEquals('GET', $request['method']);
+        $this->assertEquals('https://api.ebanx.com/ws/documentbalance', $request['action']);
+        $this->assertEquals(true, $request['decode']);
+        $this->assertEquals('USD', $request['params']['currency_code']);
+    }
+}
