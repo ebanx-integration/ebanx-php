@@ -75,6 +75,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.8.0**: added documentBalance operation
 * **1.7.0**: added hardcoded autoloader, removed Guzzle to avoid dependencies
 * **1.6.1**: removed manual autoloader
 * **1.6.0**: added fallback HTTP client for environments without curl
