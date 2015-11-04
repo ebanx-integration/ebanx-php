@@ -9,6 +9,7 @@ exclude_paths:
 - examples/direct.php
 - examples/document_balance.php
 - examples/exchange.php
+- examples/get_bank_list.php
 - examples/print_html.php
 - examples/query.php
 - examples/refund.php
