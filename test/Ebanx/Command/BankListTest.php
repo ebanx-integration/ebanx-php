@@ -35,7 +35,7 @@ class BankListTest extends TestCase
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'country_code' was not supplied.");
         \Ebanx\Ebanx::getBankList(array());
-    }
+    } 
 
     public function testRequest()
     {
