@@ -42,7 +42,7 @@ class BankListTest extends TestCase
         $request = \Ebanx\Ebanx::getBankList(array('country_code' => 'BR'));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/getbanklist', $request['action']);
+        $this->assertEquals('https://api.ebanx.com/ws/getBankList', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals('USD', $request['params']['country_code']);
     }
