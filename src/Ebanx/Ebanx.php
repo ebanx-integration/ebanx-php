@@ -53,7 +53,7 @@ class Ebanx
      */
     public static function __callStatic($name, $args)
     {
-        if (preg_match('/^do[\w]+/', $name))
+        if (preg_match('/^do|get[\w]+/', $name))
         {
             if (!isset($args[0]))
             {

@@ -33,6 +33,7 @@ require_once 'Ebanx/Ebanx.php';
 require_once 'Ebanx/Config.php';
 require_once 'Ebanx/Http/Client.php';
 require_once 'Ebanx/Command/AbstractCommand.php';
+require_once 'Ebanx/Command/BankList.php';
 require_once 'Ebanx/Command/Factory.php';
 require_once 'Ebanx/Command/Validator.php';
 require_once 'Ebanx/Command/Request/Direct.php';

@@ -29,56 +29,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Ebanx\Command;
-
-/**
- * The commands factory class
- *
- * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
- */
-class Factory
+class BankListTest extends TestCase
 {
-    /**
-     * Returns an instance of the command class
-     * @param  string $name The command name in the form 'doCommand'
-     * @return \Ebanx\Command\AbstractCommand
-     * @throws RuntimeException
-     */
-    public static function build($name)
+    public function testValidateCountryCode()
     {
-        $class = '\\Ebanx\\Command\\';
+        $this->setExpectedException('InvalidArgumentException', "The parameter 'country_code' was not supplied.");
+        \Ebanx\Ebanx::getBankList(array());
+    }
 
-        $className = str_replace('do', '', $name);
+    public function testRequest()
+    {
+        $request = \Ebanx\Ebanx::getBankList(array('country_code' => 'BR'));
 
-        if ($className == $name)
-        {
-            $className = str_replace('get', '', $name);
-        }
-
-        $class .= $className;
-
-        // Request command is different depending on the checkout method (Ebanx or direct)
-        if ($className == 'Request')
-        {
-            // Use EBANX direct
-            if (\Ebanx\Config::getDirectMode() == true)
-            {
-                $class .= '\\Direct';
-            }
-            // Use EBANX checkout
-            else
-            {
-                $class .= '\\Checkout';
-            }
-        }
-
-        if (class_exists($class))
-        {
-            return new $class();
-        }
-        else
-        {
-            throw new \RuntimeException("Command '$className' doesn't exist.");
-        }
+        $this->assertEquals('GET', $request['method']);
+        $this->assertEquals('https://api.ebanx.com/ws/getbanklist', $request['action']);
+        $this->assertEquals(true, $request['decode']);
+        $this->assertEquals('USD', $request['params']['country_code']);
     }
 }
