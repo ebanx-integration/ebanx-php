@@ -145,8 +145,8 @@ class Client
         $context = stream_context_create(array(
             'http' => array(
                 'method' => $this->method
-              , 'header' => "Content-Type: application/x-www-form-urlencoded \r\n" .
-                            "User-Agent EBANX PHP Library " . \Ebanx\Ebanx::VERSION . "\r\n"
+              , 'header' => "Content-Type: application/x-www-form-urlencoded\r\n" .
+                            "User-Agent: EBANX PHP Library " . \Ebanx\Ebanx::VERSION . "\r\n"
               , 'content' => ($this->method == 'GET') ? '' : $params
             )
         ));
