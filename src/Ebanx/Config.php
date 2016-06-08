@@ -32,26 +32,28 @@
 namespace Ebanx;
 
 /**
- * Config class (singleton, registry)
+ * Config class (singleton, registry).
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
 class Config
 {
     /**
-     * The API URLs for test and production
+     * The API URLs for test and production.
      */
-    const URL_TEST       = 'https://sandbox.ebanx.com/ws/';
+    const URL_TEST = 'https://sandbox.ebanx.com/ws/';
     const URL_PRODUCTION = 'https://api.ebanx.com/ws/';
 
     /**
-     * The config object instance
+     * The config object instance.
+     *
      * @var \Ebanx\Config
      */
     protected static $instance = null;
 
     /**
-     * Library settings array
+     * Library settings array.
+     *
      * @var array
      */
     protected static $settings = array();
@@ -63,36 +65,38 @@ class Config
     protected function __construct()
     {
         self::$settings['directMode'] = false;
-        self::$settings['testMode']   = false;
+        self::$settings['testMode'] = false;
         self::$settings['httpClient'] = '\\Ebanx\\Http\\Client';
     }
 
     /**
-     * Get the class instance (singleton)
+     * Get the class instance (singleton).
+     *
      * @return \Ebanx\Config
      */
     public static function getInstance()
     {
-        if (self::$instance == null)
-        {
-            self::$instance = new Config();
+        if (self::$instance == null) {
+            self::$instance = new self();
         }
 
         return self::$instance;
     }
 
     /**
-     * Gets a setting value
+     * Gets a setting value.
+     *
      * @param string $key The setting name
+     *
      * @return mixed
-     * @throws InvalidArgumentException
+     *
+     * @throws \InvalidArgumentException
      */
     public static function get($key)
     {
         self::getInstance();
 
-        if (array_key_exists($key, self::$settings))
-        {
+        if (array_key_exists($key, self::$settings)) {
             return self::$settings[$key];
         }
 
@@ -100,10 +104,10 @@ class Config
     }
 
     /**
-     * Sets a setting
-     * @param string $key The setting name
-     * @param mixed $value The setting value
-     * @return void
+     * Sets a setting.
+     *
+     * @param string $key   The setting name
+     * @param mixed  $value The setting value
      */
     public static function set()
     {
@@ -111,23 +115,21 @@ class Config
 
         $args = func_get_args();
 
-        if (is_array($args[0]))
-        {
-            foreach ($args[0] as $key => $value)
-            {
+        if (is_array($args[0])) {
+            foreach ($args[0] as $key => $value) {
                 self::$settings[$key] = $value;
             }
-        }
-        else
-        {
+        } else {
             self::$settings[$args[0]] = $args[1];
         }
     }
 
     /**
-     * Magic method to get and set settings
-     * @param  string $name The method name
-     * @param  string $args The method arguments
+     * Magic method to get and set settings.
+     *
+     * @param string $name The method name
+     * @param string $args The method arguments
+     *
      * @return mixed
      */
     public static function __callStatic($name, $args)
@@ -135,26 +137,23 @@ class Config
         // From 'getIntegrationKey' to 'integrationKey'
         $key = lcfirst(preg_replace('/^get|^set/', '', $name));
 
-        // Magic getter method
-        if (preg_match('/^get[\w]+/', $name))
-        {
+        if (preg_match('/^get[\w]+/', $name)) {
+            // Magic getter method
             return self::get($key);
-        }
-        // Magic setter method
-        else if (preg_match('/^set[\w]+/', $name))
-        {
+        } elseif (preg_match('/^set[\w]+/', $name)) {
+            // Magic setter method
             self::set($key, $args[0]);
         }
     }
 
     /**
-     * Gets the current API URL
+     * Gets the current API URL.
+     *
      * @return string
      */
     public static function getURL()
     {
-        if (self::$settings['testMode'] == true)
-        {
+        if (self::$settings['testMode'] == true) {
             return self::URL_TEST;
         }
 

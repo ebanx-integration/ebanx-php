@@ -32,16 +32,19 @@
 namespace Ebanx\Command;
 
 /**
- * The commands factory class
+ * The commands factory class.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
 class Factory
 {
     /**
-     * Returns an instance of the command class
-     * @param  string $name The command name in the form 'doCommand'
+     * Returns an instance of the command class.
+     *
+     * @param string $name The command name in the form 'doCommand'
+     *
      * @return \Ebanx\Command\AbstractCommand
+     *
      * @throws RuntimeException
      */
     public static function build($name)
@@ -50,35 +53,27 @@ class Factory
 
         $className = str_replace('do', '', $name);
 
-        if ($className == $name)
-        {
+        if ($className == $name) {
             $className = str_replace('get', '', $name);
         }
 
         $class .= $className;
 
         // Request command is different depending on the checkout method (Ebanx or direct)
-        if ($className == 'Request')
-        {
+        if ($className == 'Request') {
             // Use EBANX direct
-            if (\Ebanx\Config::getDirectMode() == true)
-            {
+            if (\Ebanx\Config::getDirectMode() == true) {
                 $class .= '\\Direct';
-            }
-            // Use EBANX checkout
-            else
-            {
+            } else {
+                // Use EBANX checkout
                 $class .= '\\Checkout';
             }
         }
-
-        if (class_exists($class))
-        {
-            return new $class();
-        }
-        else
-        {
+        
+        if (!class_exists($class)) {
             throw new \RuntimeException("Command '$className' doesn't exist.");
         }
+        
+        return new $class();
     }
 }

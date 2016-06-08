@@ -31,29 +31,36 @@
 
 namespace Ebanx\Command;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'documentBalance' action
+ * Command for the 'documentBalance' action.
  *
  * @author Heitor Dolinski heitor@ebanx.com
  */
-class DocumentBalance extends \Ebanx\Command\AbstractCommand
+class DocumentBalance extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'GET';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'documentbalance';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     protected function validate($validator)

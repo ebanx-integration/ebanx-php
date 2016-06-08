@@ -32,40 +32,41 @@
 namespace Ebanx;
 
 /**
- * The EBANX API client
+ * The EBANX API client.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
 class Ebanx
 {
     /**
-     * Library version
+     * Library version.
+     *
      * @var string
      */
     const VERSION = '1.9.0';
 
     /**
-     * Magic method that calls the Command Factory
+     * Magic method that calls the Command Factory.
+     *
      * @param string $name The method name
      * @param string $args The method arguments ($args[0] for the parameters array)
+     *
      * @return mixed
-     * @throws InvalidArgumentException
+     *
+     * @throws \InvalidArgumentException
      */
     public static function __callStatic($name, $args)
     {
-        if (preg_match('/^do|get[\w]+/', $name))
-        {
-            if (!isset($args[0]))
-            {
-                throw new \InvalidArgumentException('The command call received no arguments.');
-            }
-
-            $command = \Ebanx\Command\Factory::build($name);
-            return $command->execute($args[0]);
-        }
-        else
-        {
+        if (!preg_match('/^do|get[\w]+/', $name)) {
             throw new \InvalidArgumentException("The command $name doesn't exist.");
         }
+        
+        if (!isset($args[0])) {
+            throw new \InvalidArgumentException('The command call received no arguments.');
+        }
+
+        $command = \Ebanx\Command\Factory::build($name);
+
+        return $command->execute($args[0]);
     }
 }
