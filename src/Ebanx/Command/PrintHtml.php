@@ -32,34 +32,40 @@
 namespace Ebanx\Command;
 
 /**
- * Command for the 'boleto/printHTML' action
+ * Command for the 'boleto/printHTML' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
 class PrintHtml extends \Ebanx\Command\AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'GET';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'boleto/printHTML';
 
     /**
-     * The response type - HTML or JSON
+     * The response type - HTML or JSON.
+     *
      * @var string
      */
-    protected $_responseType = 'HTML';
+    protected $responseType = 'HTML';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     protected function validate($validator)

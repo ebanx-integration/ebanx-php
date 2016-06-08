@@ -31,30 +31,37 @@
 
 namespace Ebanx\Command\Request;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'request' action
+ * Command for the 'request' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class Checkout extends \Ebanx\Command\AbstractCommand
+class Checkout extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'POST';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'request';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
-     * @throws InvalidArgumentException
+     *
+     * @throws \InvalidArgumentException
      */
     protected function validate($validator)
     {

@@ -31,29 +31,36 @@
 
 namespace Ebanx\Command;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'refund' action
+ * Command for the 'refund' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class Refund extends \Ebanx\Command\AbstractCommand
+class Refund extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'POST';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'refund';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     protected function validate($validator)
@@ -61,15 +68,12 @@ class Refund extends \Ebanx\Command\AbstractCommand
         $validator->validatePresence('operation');
 
         // Validation for a new refund request
-        if ($this->params['operation'] == 'request')
-        {
+        if ($this->params['operation'] == 'request') {
             $validator->validatePresence('hash');
             $validator->validatePresence('amount');
             $validator->validatePresence('description');
-        }
-        // Validation a cancel refund request
-        else
-        {
+        } else {
+            // Validation a cancel refund request
             $validator->validatePresenceOr('merchant_refund_code', 'refund_id');
         }
     }

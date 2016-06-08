@@ -32,47 +32,56 @@
 namespace Ebanx\Command;
 
 /**
- * The abstract command class
+ * The abstract command class.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
 abstract class AbstractCommand
 {
     /**
-     * Associative array of params
+     * Associative array of params.
+     *
      * @var array
      */
     protected $params = array();
 
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'POST';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = null;
 
     /**
-     * The response type - HTML or JSON
+     * The response type - HTML or JSON.
+     *
      * @var string
      */
-    protected $_responseType = 'JSON';
+    protected $responseType = 'JSON';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     abstract protected function validate($validator);
 
     /**
-     * Executes the command in the EBANX API
-     * @param  array $params The request parameters
+     * Executes the command in the EBANX API.
+     *
+     * @param array $params The request parameters
+     *
      * @return mixed
      */
     public function execute($params)
@@ -86,7 +95,7 @@ abstract class AbstractCommand
         $client->setParams($this->params)
                ->setMethod($this->method)
                ->setAction($this->action)
-               ->setResponseType($this->_responseType);
+               ->setResponseType($this->responseType);
 
         return $client->send();
     }

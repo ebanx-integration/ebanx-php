@@ -31,29 +31,36 @@
 
 namespace Ebanx\Command;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'token' action
+ * Command for the 'token' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class Zipcode extends \Ebanx\Command\AbstractCommand
+class Zipcode extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'GET';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'zipcode';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     protected function validate($validator)

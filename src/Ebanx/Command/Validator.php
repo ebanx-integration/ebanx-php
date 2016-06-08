@@ -39,7 +39,8 @@ namespace Ebanx\Command;
 class Validator
 {
     /**
-     * The request parameters
+     * The request parameters.
+     *
      * @var array
      */
     protected $params;
@@ -50,15 +51,17 @@ class Validator
     }
 
     /**
-     * Verifies if a parameter was supplied
-     * @param  string $key The parameter name (array key)
-     * @return boolean
-     * @throws InvalidArgumentException
+     * Verifies if a parameter was supplied.
+     *
+     * @param string $key The parameter name (array key)
+     *
+     * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     public function validatePresence($key)
     {
-        if ($this->exists($key))
-        {
+        if ($this->exists($key)) {
             return true;
         }
 
@@ -66,26 +69,27 @@ class Validator
     }
 
     /**
-     * Verifies if one of the parameters was supplied
-     * @param  string $key1 The first parameter name (array key)
-     * @param  string $key1 The second parameter name (array key)
-     * @return boolean
+     * Verifies if one of the parameters was supplied.
+     *
+     * @param string $key1 The first parameter name (array key)
+     * @param string $key2 The second parameter name (array key)
+     *
+     * @return bool
+     *
      * @throws InvalidArgumentException
      */
     public function validatePresenceOr($key1, $key2)
     {
-        if ($this->exists($key1))
-        {
+        if ($this->exists($key1)) {
             // Throw an exception if both parameters exist
-            if ($this->exists($key2))
-            {
-                throw new \InvalidArgumentException("Either parameter '$key1' or '$key2' must be supplied, but not both.");
+            if ($this->exists($key2)) {
+                throw new \InvalidArgumentException(
+                    "Either parameter '$key1' or '$key2' must be supplied, but not both."
+                );
             }
 
             return true;
-        }
-        else if ($this->exists($key2))
-        {
+        } elseif ($this->exists($key2)) {
             return true;
         }
 
@@ -93,36 +97,31 @@ class Validator
     }
 
     /**
-     * Verifies if a parameter exists
-     * @param  string $key The parameter name (array key)
-     * @return boolean
+     * Verifies if a parameter exists.
+     *
+     * @param string $key The parameter name (array key)
+     *
+     * @return bool
      */
     public function exists($key)
     {
         // Checks if we need to verify a nested array
-        if (preg_match('/\.+/', $key))
-        {
-            $keys   = explode('.', $key);
+        if (preg_match('/\.+/', $key)) {
+            $keys = explode('.', $key);
             $levels = count($keys);
 
             // Quick workaround
-            if ($levels == 4)
-            {
-                return isset($this->params[$keys[0]][$keys[1]][$keys[2]][$keys3]);
-            }
-            else if ($levels == 3)
-            {
+            if ($levels == 4) {
+                return isset($this->params[$keys[0]][$keys[1]][$keys[2]][$keys[3]]);
+            } elseif ($levels == 3) {
                 return isset($this->params[$keys[0]][$keys[1]][$keys[2]]);
-            }
-            else
-            {
+            } else {
                 return isset($this->params[$keys[0]][$keys[1]]);
             }
         }
 
         // Non-nested array validation
-        if (array_key_exists($key, $this->params))
-        {
+        if (array_key_exists($key, $this->params)) {
             return true;
         }
 

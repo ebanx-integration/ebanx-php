@@ -31,29 +31,36 @@
 
 namespace Ebanx\Command;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'refundOrCancel' action
+ * Command for the 'refundOrCancel' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class RefundOrCancel extends \Ebanx\Command\AbstractCommand
+class RefundOrCancel extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'POST';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'refundOrCancel';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
+     *
      * @throws InvalidArgumentException
      */
     protected function validate($validator)

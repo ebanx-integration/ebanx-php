@@ -1,38 +1,50 @@
 # EBANX PHP Library [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-php.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-php) [![Code Climate](https://codeclimate.com/github/ebanx-integration/ebanx-php/badges/gpa.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-php) [![Test Coverage](https://codeclimate.com/github/ebanx-integration/ebanx-php/badges/coverage.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-php/coverage)
+
 EBANX is the market leader in e-commerce payment solutions for International Merchants selling online to Brazil.
 This library enables you to integrate EBANX with any PHP application.
 
 ## Requirements
+
 * PHP >= 5.3
 * cURL
 
 ## Installation
+
 ### Composer
+
 The EBANX library is available on Packagist (https://packagist.org/packages/ebanx/ebanx),
 therefore you can install it by simply updating your composer.json file:
 
 ``` json
 {
   "require" : {
-    "ebanx/ebanx": "dev-master"
+    "ebanx/ebanx": "v1.9.0"
   }
 }
 ```
-After that run _composer install_ and wait for it to finish. Include the Composer
+
+> **Notice:** Remember to always check our [Changelog](#changelog) and available releases on [our source on Packagist](https://packagist.org/packages/ebanx/ebanx) to always install the most up-to-date versions.
+
+After that run _composer install --no-dev_ and wait for it to finish. Include the Composer
 generated autoloader from 'vendor/autoload.php' and you're ready to use the library.
 
 ### Git Repository
-Clone the git repository anywhere you want and include the EBANX library autoloader
-from 'src/autoload.php'.
+
+Clone the git repository anywhere you want, then run _composer install --no-dev_ to install all dependencies 
+and, finally, include the EBANX library by requiring the 'vendor/autoload.php' file.
 
 ## Usage
+
 ### Setup
+
 To use the EBANX PHP library you need to setup your integration key.
+
 ``` php
 \Ebanx\Config::setIntegrationKey('your-integration-key');
 ```
 
 If you need to change other settings, you can use the following function call:
+
 ``` php
 \Ebanx\Config::set([
     'integrationKey' => 'your-integration-key'
@@ -41,12 +53,14 @@ If you need to change other settings, you can use the following function call:
 ```
 
 You can change the following settings:
+
 * integrationKey: your integration key. It will be different in test and production modes.
 * testMode: enable or disable the test mode. The default value is _false_.
 * directMode: enable or disable the direct checkout mode. The default value is _false_.
 
 To create a new API request, just call one of the following methods on the \Ebanx\Ebanx
 class and supply it with the request parameters:
+
 * \Ebanx\Ebanx::doCancel
 * \Ebanx\Ebanx::doCapture
 * \Ebanx\Ebanx::doExchange
@@ -59,6 +73,7 @@ class and supply it with the request parameters:
 * \Ebanx\Ebanx::doZipcode
 
 doRequest command example:
+
 ``` php
 require_once __DIR__ . 'vendor/autoload.php';
 
@@ -75,6 +90,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+
 * **1.9.0**: added getBankList operation
 * **1.8.0**: added documentBalance operation
 * **1.7.0**: added hardcoded autoloader, removed Guzzle to avoid dependencies

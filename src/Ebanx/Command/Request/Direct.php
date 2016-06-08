@@ -31,30 +31,37 @@
 
 namespace Ebanx\Command\Request;
 
+use Ebanx\Command\AbstractCommand;
+
 /**
- * Command for the 'direct' action
+ * Command for the 'direct' action.
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
-class Direct extends \Ebanx\Command\AbstractCommand
+class Direct extends AbstractCommand
 {
     /**
-     * The HTTP method
+     * The HTTP method.
+     *
      * @var string
      */
     protected $method = 'POST';
 
     /**
-     * The action URL address
+     * The action URL address.
+     *
      * @var string
      */
     protected $action = 'direct';
 
     /**
-     * Validates the request parameters
-     * @param Ebanx\Command\Validator $validator The validator instance
+     * Validates the request parameters.
+     *
+     * @param \Ebanx\Command\Validator $validator The validator instance
+     *
      * @return mixed
-     * @throws InvalidArgumentException
+     *
+     * @throws \InvalidArgumentException
      */
     protected function validate($validator)
     {
