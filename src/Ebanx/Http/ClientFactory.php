@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013, EBANX Tecnologia da Informação Ltda.
+ * Copyright (c) 2017, EBANX Tecnologia da Informação Ltda.
  *  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,26 +29,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-require_once 'Ebanx/Ebanx.php';
-require_once 'Ebanx/Config.php';
-require_once 'Ebanx/Http/AbstractClient.php';
-require_once 'Ebanx/Http/ClientFactory.php';
-require_once 'Ebanx/Http/ClientCurl.php';
-require_once 'Ebanx/Command/AbstractCommand.php';
-require_once 'Ebanx/Command/BankList.php';
-require_once 'Ebanx/Command/Factory.php';
-require_once 'Ebanx/Command/Validator.php';
-require_once 'Ebanx/Command/Request/Direct.php';
-require_once 'Ebanx/Command/Request/Checkout.php';
-require_once 'Ebanx/Command/Cancel.php';
-require_once 'Ebanx/Command/Capture.php';
-require_once 'Ebanx/Command/Exchange.php';
-require_once 'Ebanx/Command/PrintHtml.php';
-require_once 'Ebanx/Command/Query.php';
-require_once 'Ebanx/Command/Refund.php';
-require_once 'Ebanx/Command/RefundOrCancel.php';
-require_once 'Ebanx/Command/Token.php';
-require_once 'Ebanx/Command/Zipcode.php';
-require_once 'Ebanx/Command/DocumentBalance.php';
-require_once 'Ebanx/Command/MerchantIntegrationProperties.php';
-require_once 'Ebanx/Command/MerchantIntegrationPublicProperties.php';
+namespace Ebanx\Http;
+
+use Ebanx\Http;
+
+/**
+ * HTTP request client wrapper, using curl, with stream fallback
+ *
+ * @author Guilherme Pressutto guilherme.pressutto@ebanx.com
+ */
+class ClientFactory
+{
+
+    /**
+     * Returns CurlClient if curl is enabled, else
+     * returns StreamClient if php_ini allows url fopen, else
+     * throws an exception
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
+     * @throws RuntimeException
+     */
+    public static function getInstance()
+    {
+        if (in_array('curl', get_loaded_extensions())) {
+            return new ClientCurl();
+        }
+
+        throw new \RuntimeException('No supported HTTP request method on this server.'.
+                                    ' Please enable curl.');
+    }
+}
