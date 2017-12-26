@@ -32,20 +32,19 @@
 namespace Ebanx\Http;
 
 use Ebanx\Config;
-use GuzzleHttp;
 
 /**
- * HTTP client class, wrapper for curl_* functions
+ * Abstract class for HTTP clients.
  *
- * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
+ * @author Guilherme Pressutto guilherme.pressutto@ebanx.com
  */
-class Client
+abstract class AbstractClient
 {
     /**
-     * The request HTTP method
+     * The HTTP action (URI)
      * @var string
      */
-    protected $method;
+    protected $action;
 
     /**
      * The allowed HTTP methods
@@ -54,57 +53,40 @@ class Client
     protected $allowedMethods = array('POST', 'GET');
 
     /**
-     * The HTTP action (URI)
+     * Flag to call json_decode on response
+     * @var boolean
+     */
+    protected $hasToDecodeResponse = false;
+
+    /**
+     * The ignored status codes
+     * @var array
+     */
+    protected $ignoredStatusCodes = array();
+
+    /**
+     * The request HTTP method
      * @var string
      */
-    protected $action;
+    protected $method;
 
     /**
      * The request parameters
      * @var array
      */
-    protected $params;
+    protected $requestParams;
+
 
     /**
-     * Flag to call json_decode on response
-     * @var boolean
+     * Sends the HTTP request
+     * @return StdClass
      */
-    protected $decodeResponse = false;
-
-    /**
-     * Set the request parameters
-     * @param array $params The request parameters
-     * @return Ebanx\Http\Client
-     */
-    public function setParams($params)
-    {
-        $this->params = $params;
-        $this->params['integration_key'] = Config::getIntegrationKey();
-
-        return $this;
-    }
-
-    /**
-     * Set the request HTTP method
-     * @param string $method The request HTTP method
-     * @return Ebanx\Http\Client
-     * @throws InvalidArgumentException
-     */
-    public function setMethod($method)
-    {
-        if (!in_array(strtoupper($method), $this->allowedMethods))
-        {
-          throw new \InvalidArgumentException("The HTTP Client doesn't accept $method requests.");
-        }
-
-        $this->method = $method;
-        return $this;
-    }
+    abstract public function send();
 
     /**
      * Set the request target URI
      * @param string $action The target URI
-     * @return Ebanx\Http\Client
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
      */
     public function setAction($action)
     {
@@ -113,56 +95,52 @@ class Client
     }
 
     /**
-     * Set the decodeResponse flag depending on the response type (JSON or HTML)
-     * @param string $responseType The response type (JSON or HTML)
-     * @return Ebanx\Http\Client
+     * Set the ignored status codes
+     * @param array $ignoredStatusCodes The ignored status codes
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
      */
-
-    public function setResponseType($responseType)
+    public function setIgnoredStatusCodes($ignoredStatusCodes)
     {
-        if (strtoupper($responseType) == 'JSON')
-        {
-            $this->decodeResponse = true;
-        }
-
+        $this->ignoredStatusCodes = $ignoredStatusCodes;
         return $this;
     }
 
     /**
-     * Sends the HTTP request
-     * @return StdClass
+     * Set the request HTTP method
+     * @param string $method The request HTTP method
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
+     * @throws InvalidArgumentException
      */
-    public function send()
+    public function setMethod($method)
     {
-        if (!ini_get('allow_url_fopen'))
-        {
-            throw new \RuntimeException('allow_url_fopen must be enabled to use PHP streams.');
+        if(!in_array(strtoupper($method), $this->allowedMethods)) {
+          throw new \InvalidArgumentException("The HTTP Client doesn't accept $method requests.");
         }
 
-        $params = http_build_query($this->params);
-        $uri    = ($this->method == 'GET') ? ($this->action . '?' . $params) : $this->action;
+        $this->method = $method;
+        return $this;
+    }
 
-        $context = stream_context_create(array(
-            'http' => array(
-                'method' => $this->method
-              , 'header' => "Content-Type: application/x-www-form-urlencoded\r\n" .
-                            "User-Agent: EBANX PHP Library " . \Ebanx\Ebanx::VERSION . "\r\n"
-              , 'content' => ($this->method == 'GET') ? '' : $params
-            )
-        ));
+    /**
+     * Set the request parameters
+     * @param array $params The request parameters
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
+     */
+    public function setRequestParams($requestParams)
+    {
+        $this->requestParams = $requestParams;
+        $this->requestParams['integration_key'] = Config::getIntegrationKey();
+        return $this;
+    }
 
-        $response = file_get_contents($uri, false, $context);
-
-        if ($response && strlen($response))
-        {
-            if ($this->decodeResponse)
-            {
-                return json_decode($response);
-            }
-
-            return $response;
-        }
-
-        throw new \RuntimeException("Bad HTTP request: {$response}");
+    /**
+     * Set the decodeResponse flag depending on the response type (JSON or HTML)
+     * @param string $responseType The response type (JSON or HTML)
+     * @return Ebanx\Http\AbstractClient A "Ebanx\Http\AbstractClient" subclass object
+     */
+    public function setResponseType($responseType)
+    {
+        $this->hasToDecodeResponse = strtoupper($responseType) == 'JSON';
+        return $this;
     }
 }

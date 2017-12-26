@@ -64,7 +64,7 @@ class Config
     {
         self::$settings['directMode'] = false;
         self::$settings['testMode']   = false;
-        self::$settings['httpClient'] = '\\Ebanx\\Http\\Client';
+        self::$settings['httpClient'] = Http\ClientFactory::getInstance();
     }
 
     /**

@@ -75,6 +75,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.10.0**: added Curl
 * **1.9.0**: added getBankList operation
 * **1.8.0**: added documentBalance operation
 * **1.7.0**: added hardcoded autoloader, removed Guzzle to avoid dependencies

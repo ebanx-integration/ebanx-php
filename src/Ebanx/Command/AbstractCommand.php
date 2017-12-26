@@ -62,6 +62,8 @@ abstract class AbstractCommand
      */
     protected $_responseType = 'JSON';
 
+    protected $ignoredStatusCodes = array();
+
     /**
      * Validates the request parameters
      * @param Ebanx\Command\Validator $validator The validator instance
@@ -83,9 +85,10 @@ abstract class AbstractCommand
         // Get the HTTP client from the registry
         $httpClient = \Ebanx\Config::getHttpClient();
         $client = new $httpClient();
-        $client->setParams($this->params)
+        $client->setRequestParams($this->params)
                ->setMethod($this->method)
                ->setAction($this->action)
+               ->setIgnoredStatusCodes($this->ignoredStatusCodes)
                ->setResponseType($this->_responseType);
 
         return $client->send();
