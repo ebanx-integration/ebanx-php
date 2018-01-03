@@ -46,12 +46,12 @@ class ClientCurl extends AbstractClient
      */
     public function send()
     {
+        $allowed_status_codes = array_merge(array(200), $this->ignoredStatusCodes);
+        $this->ignoredStatusCodes = array();
+
         try {
             $this->_setupCurl();
-
             $response = curl_exec($this->curl);
-
-            $allowed_status_codes = array_merge(array(200), $this->ignoredStatusCodes);
 
             if (!in_array(curl_getinfo($this->curl, CURLINFO_HTTP_CODE), $allowed_status_codes)) {
                 if (curl_errno($this->curl)) {
@@ -62,9 +62,7 @@ class ClientCurl extends AbstractClient
             curl_close($this->curl);
 
             return $this->hasToDecodeResponse ? json_decode($response) : $response;
-        } finally {
-            $this->ignoredStatusCodes = array();
-        }
+        } catch (Exception $e) {  }
     }
 
     /**
