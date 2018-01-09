@@ -29,27 +29,38 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-require_once 'Ebanx/Ebanx.php';
-require_once 'Ebanx/Config.php';
-require_once 'Ebanx/Http/AbstractClient.php';
-require_once 'Ebanx/Http/ClientFactory.php';
-require_once 'Ebanx/Http/ClientCurl.php';
-require_once 'Ebanx/Command/AbstractCommand.php';
-require_once 'Ebanx/Command/BankList.php';
-require_once 'Ebanx/Command/Factory.php';
-require_once 'Ebanx/Command/Validator.php';
-require_once 'Ebanx/Command/Request/Direct.php';
-require_once 'Ebanx/Command/Request/Checkout.php';
-require_once 'Ebanx/Command/Cancel.php';
-require_once 'Ebanx/Command/Capture.php';
-require_once 'Ebanx/Command/Exchange.php';
-require_once 'Ebanx/Command/PrintHtml.php';
-require_once 'Ebanx/Command/Query.php';
-require_once 'Ebanx/Command/Refund.php';
-require_once 'Ebanx/Command/RefundOrCancel.php';
-require_once 'Ebanx/Command/Token.php';
-require_once 'Ebanx/Command/TokenQuery.php';
-require_once 'Ebanx/Command/Zipcode.php';
-require_once 'Ebanx/Command/DocumentBalance.php';
-require_once 'Ebanx/Command/MerchantIntegrationProperties.php';
-require_once 'Ebanx/Command/MerchantIntegrationPublicProperties.php';
+namespace Ebanx\Command;
+
+/**
+ * Command for the 'tokenQuery' action
+ *
+ */
+class TokenQuery extends \Ebanx\Command\AbstractCommand
+{
+    /**
+     * The HTTP method
+     * @var string
+     */
+    protected $method = 'POST';
+
+    /**
+     * The action URL address
+     * @var string
+     */
+    protected $action = 'token/query';
+
+    /**
+     * Validates the request parameters
+     * @param Ebanx\Command\Validator $validator The validator instance
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    protected function validate($validator)
+    {
+        $validator->validatePresence('token');
+
+        // Gambiarration
+        $this->params['integration_key'] = \Ebanx\Config::getIntegrationKey();
+        $this->params = array('request_body' => json_encode($this->params));
+    }
+}
