@@ -75,6 +75,7 @@ $request = \Ebanx\Ebanx::doRequest([
 ```
 
 ## Changelog
+* **1.11.0**: added token/query operation
 * **1.10.0**: added Curl
 * **1.9.0**: added getBankList operation
 * **1.8.0**: added documentBalance operation
