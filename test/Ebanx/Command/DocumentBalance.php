@@ -42,7 +42,7 @@ class DocumentBalanceTest extends TestCase
         $request = \Ebanx\Ebanx::doDocumentBalance(array('currency_code' => 'USD', 'document' => '88282672165'));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/documentbalance', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/documentbalance', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals('USD', $request['params']['currency_code']);
     }

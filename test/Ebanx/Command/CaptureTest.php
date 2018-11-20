@@ -43,7 +43,7 @@ class CaptureTest extends TestCase
         $request = \Ebanx\Ebanx::doCapture(array('hash' => $hash));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/capture', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/capture', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($hash, $request['params']['hash']);
     }
@@ -54,7 +54,7 @@ class CaptureTest extends TestCase
         $request = \Ebanx\Ebanx::doCapture(array('merchant_payment_code' => $code));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/capture', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/capture', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($code, $request['params']['merchant_payment_code']);
     }

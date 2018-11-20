@@ -94,7 +94,7 @@ class CheckoutTest extends TestCase
         $request = \Ebanx\Ebanx::doRequest($this->params);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/request', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/request', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
         $this->assertEquals($this->params['currency_code'], $request['params']['currency_code']);
         $this->assertEquals($this->params['amount'], $request['params']['amount']);

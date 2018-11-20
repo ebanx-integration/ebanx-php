@@ -85,7 +85,7 @@ class RefundTest extends TestCase
         $request = \Ebanx\Ebanx::doRefund($this->params);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/refund', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/refund', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($this->params['operation'], $request['params']['operation']);
         $this->assertEquals($this->params['hash'], $request['params']['hash']);
@@ -103,7 +103,7 @@ class RefundTest extends TestCase
         $request = \Ebanx\Ebanx::doRefund($params);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/refund', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/refund', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($params['operation'], $request['params']['operation']);
         $this->assertEquals($params['refund_id'], $request['params']['refund_id']);
@@ -119,7 +119,7 @@ class RefundTest extends TestCase
         $request = \Ebanx\Ebanx::doRefund($params);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/refund', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/refund', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($params['operation'], $request['params']['operation']);
         $this->assertEquals($params['merchant_refund_code'], $request['params']['merchant_refund_code']);
