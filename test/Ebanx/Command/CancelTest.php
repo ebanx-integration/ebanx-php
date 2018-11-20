@@ -43,7 +43,7 @@ class CancelTest extends TestCase
         $request = \Ebanx\Ebanx::doCancel(array('hash' => $hash));
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/cancel', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/cancel', $request['action']);
         $this->assertEquals(true, $request['decode'], true);
         $this->assertEquals($hash, $request['params']['hash'], $hash);
     }

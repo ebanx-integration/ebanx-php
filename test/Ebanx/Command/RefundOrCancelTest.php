@@ -62,7 +62,7 @@ class RefundOrCancelTest extends TestCase
         $request = \Ebanx\Ebanx::doRefundOrCancel($this->params);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/refundOrCancel', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/refundOrCancel', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($this->params['hash'], $request['params']['hash']);
         $this->assertEquals($this->params['description'], $request['params']['description']);

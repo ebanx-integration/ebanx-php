@@ -93,7 +93,7 @@ class TokenTest extends TestCase
         $params  = json_decode($request['params']['request_body'], true);
 
         $this->assertEquals('POST', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/token', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/token', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals($this->params['payment_type_code'], $params['payment_type_code']);
         $this->assertEquals($this->params['creditcard']['card_number'],

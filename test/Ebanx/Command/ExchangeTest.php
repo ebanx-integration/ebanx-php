@@ -42,7 +42,7 @@ class ExchangeTest extends TestCase
         $request = \Ebanx\Ebanx::doExchange(array('currency_code' => 'USD'));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/exchange', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/exchange', $request['action']);
         $this->assertEquals(true, $request['decode']);
         $this->assertEquals('USD', $request['params']['currency_code']);
     }

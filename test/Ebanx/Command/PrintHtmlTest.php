@@ -43,7 +43,7 @@ class PrintHtmlTest extends TestCase
         $request = \Ebanx\Ebanx::doPrintHtml(array('hash' => $hash));
 
         $this->assertEquals('GET', $request['method']);
-        $this->assertEquals('https://api.ebanx.com/ws/boleto/printHTML', $request['action']);
+        $this->assertEquals('https://api.ebanxpay.com/ws/boleto/printHTML', $request['action']);
         $this->assertEquals(false, $request['decode']);
         $this->assertEquals($hash, $request['params']['hash']);
     }
