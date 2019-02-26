@@ -31,7 +31,7 @@
 
 namespace Mock\Http;
 
-class Client extends \Ebanx\Http\Client
+class Client extends \Ebanx\Http\AbstractClient
 {
     /**
      * Returns the request options/parameters instead of sending the request
@@ -42,8 +42,8 @@ class Client extends \Ebanx\Http\Client
         return array(
             'method' => $this->method
           , 'action' => $this->action
-          , 'params' => $this->params
-          , 'decode' => $this->decodeResponse
+          , 'params' => $this->requestParams
+          , 'decode' => $this->hasToDecodeResponse
         );
     }
 }

@@ -91,6 +91,16 @@ abstract class AbstractCommand
                ->setIgnoredStatusCodes($this->ignoredStatusCodes)
                ->setResponseType($this->_responseType);
 
+        try {
+            $source = \Ebanx\Config::getSourceData();
+        } catch (\InvalidArgumentException $e) {
+            $source = null;
+        }
+
+        if (!is_null($source)) {
+            $client->setSource($source);
+        }
+
         return $client->send();
     }
 }

@@ -143,4 +143,14 @@ abstract class AbstractClient
         $this->hasToDecodeResponse = strtoupper($responseType) == 'JSON';
         return $this;
     }
+
+    /**
+     * Set a custom source/version to be sent
+     * @param string $source The string containing source/version
+     */
+    public function setSource($source)
+    {
+        $this->addUserAgentInfo($source);
+        return $this;
+    }
 }

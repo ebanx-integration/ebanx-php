@@ -40,7 +40,7 @@ class ClientCurl extends AbstractClient
 {
     private $curl;
     private $uri;
-
+    private $userAgentInfo = array();
     /**
      * {@inheritDoc} using curl.
      */
@@ -89,6 +89,23 @@ class ClientCurl extends AbstractClient
         // We want to receive the returned data
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         // Setup custom user agent
-        curl_setopt($this->curl, CURLOPT_USERAGENT, 'EBANX PHP Library ' . \Ebanx\Ebanx::VERSION);
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->formatUserAgentInfo());
+    }
+
+    private function formatUserAgentInfo()
+    {
+        $formattedUserAgentInfo = array('X-Ebanx-Client-User-Agent: SDK-PHP-LEGACY/' . \Ebanx\Ebanx::VERSION . ' ' . join(' ', $this->userAgentInfo));
+        $this->userAgentInfo = $formattedUserAgentInfo;
+        return $formattedUserAgentInfo;
+    }
+
+    protected function addUserAgentInfo($userValue)
+    {
+        array_push($this->userAgentInfo, $userValue);
+    }
+
+    protected function getUserAgentInfo()
+    {
+        return $this->userAgentInfo;
     }
 }
