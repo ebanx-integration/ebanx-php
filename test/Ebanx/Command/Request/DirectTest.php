@@ -201,7 +201,7 @@ class DirectTest extends TestCase
     public function testValidatePaymentTypeCode()
     {
         $this->setExpectedException('InvalidArgumentException', "The parameter 'payment.payment_type_code' was not supplied.");
-        $this->params['payment']['payment_type_code'] = NULL; // weird bug fix, undefined index payment_type_code
+        $this->params['payment']['payment_type_code'] = null; // weird bug fix, undefined index payment_type_code
         \Ebanx\Ebanx::doRequest($this->params);
     }
 
