@@ -32,7 +32,7 @@
 namespace Ebanx\Command;
 
 /**
- * Command for the 'token' action
+ * Command for the 'zipcode' action
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
  */
