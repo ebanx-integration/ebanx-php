@@ -1,4 +1,4 @@
-> ⚠️ **DEPRECATED** — This repository is no longer maintained. Please refer to the [official EBANX documentation](https://www.ebanx.com/business/en/developers) for up-to-date integration options.
+> ⚠️ **DEPRECATED** — This repository is no longer maintained. Please refer to the [official EBANX documentation](https://docs.ebanx.com/) for up-to-date integration options.
 
 # EBANX PHP Library [![Build Status](https://travis-ci.org/ebanx-integration/ebanx-php.svg?branch=master)](https://travis-ci.org/ebanx-integration/ebanx-php) [![Code Climate](https://codeclimate.com/github/ebanx-integration/ebanx-php/badges/gpa.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-php) [![Test Coverage](https://codeclimate.com/github/ebanx-integration/ebanx-php/badges/coverage.svg)](https://codeclimate.com/github/ebanx-integration/ebanx-php/coverage)
 EBANX is the market leader in e-commerce payment solutions for International Merchants selling online to Brazil.
