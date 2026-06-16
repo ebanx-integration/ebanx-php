@@ -35,7 +35,7 @@ namespace Ebanx;
  * The EBANX API client
  *
  * @author Gustavo Henrique Mascarenhas Machado gustavo@ebanx.com
- * @deprecated This library is no longer maintained. See https://www.ebanx.com/business/en/developers for up-to-date integration options.
+ * @deprecated This library is no longer maintained. See https://docs.ebanx.com/ for up-to-date integration options.
  */
 class Ebanx
 {
